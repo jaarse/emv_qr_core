@@ -13,7 +13,7 @@ You can create a test:
 
 void main() {
  test('parser', () {
-   final result = EmvQR.decode('00020101021126340014CO.COM.RBM.LLA0412@redeban...@other');
+   final result = EmvQR.decode('000101...@breb@nequi@wompi@bancolombia@llaves@daviplata@finandina@etc');
    debugPrint(result); //EmvQrEntity
    expect(result, isA<EmvQrEntity>()); //All tests passed!
  });

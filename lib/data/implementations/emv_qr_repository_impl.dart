@@ -15,14 +15,14 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
       debugPrint('Parsing EMV QR');
       final tlvs = EmvParser.parse(qrData); //Tag Length Values source fragmented by Tag
 
-      late final EmvIndicator emvIndicator;
-      late final QrType qrType;
-      late final EmvChecksum crc;
-      late final EmvSecurityField securityField;
-      late final EmvMerchantAccountInformation multiKeyImmediatePayments;
-      late final AcquirerNetworkId acquirerNetworkId;
-      late final MerchantCode merchantCode;
-      late final AggregatorMerchantCode aggregatorMerchantCode;
+      EmvIndicator? emvIndicator;
+      QrType? qrType;
+      EmvChecksum? crc;
+      EmvSecurityField? securityField;
+      EmvMerchantAccountInformation? multiKeyImmediatePayments;
+      AcquirerNetworkId? acquirerNetworkId;
+      MerchantCode? merchantCode;
+      AggregatorMerchantCode? aggregatorMerchantCode;
 
       tlvs.forEach((tlv) {
         debugPrint('\nParseando TLV internamente: $tlv : --> ');
@@ -101,7 +101,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
         merchantCode: merchantCode,
         aggregatorMerchantCode: aggregatorMerchantCode,
       );
-      debugPrint(emvQr);
+      
       return emvQr;
 
     } catch (e) {

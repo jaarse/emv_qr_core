@@ -4,55 +4,55 @@ import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
 ///Specific entity from EMVCo Standart
 class EmvQrEntity {
   ///Convenciones QR CODE EMVCo
-  final EmvIndicator emvIndicator;
+  final EmvIndicator? emvIndicator;
 
   ///Convenciones QR CODE EMVCo
-  final QrType qrType;
+  final QrType? qrType;
 
   ///Convenciones QR CODE EMVCo
-  final EmvChecksum crc;
+  final EmvChecksum? crc;
 
   ///Convenciones QR CODE EMVCo
-  final EmvSecurityField securityField;
+  final EmvSecurityField? securityField;
 
   ///Trade Information - Información del comercio:
   ///Multi Key immediate payments
-  final EmvMerchantAccountInformation multiKeyImmediatePayments;
+  final EmvMerchantAccountInformation? multiKeyImmediatePayments;
 
   ///Trade Information - Información del comercio:
   ///Identificador de la red del adquiriente - acquirer network identifier
-  final AcquirerNetworkId acquirerNetworkId;
+  final AcquirerNetworkId? acquirerNetworkId;
 
   ///Trade Information - Información del comercio:
   ///Código del comercio
-  final MerchantCode merchantCode;
+  final MerchantCode? merchantCode;
 
   ///Trade Information - Información del comercio:
   ///Código del comercio agrupado a partir de la razón social del comercio
-  final AggregatorMerchantCode aggregatorMerchantCode;
+  final AggregatorMerchantCode? aggregatorMerchantCode;
 
   EmvQrEntity({
-    required this.emvIndicator,
-    required this.qrType,
-    required this.crc,
-    required this.securityField,
-    required this.multiKeyImmediatePayments,
-    required this.acquirerNetworkId,
-    required this.merchantCode,
-    required this.aggregatorMerchantCode,
+    this.emvIndicator,
+    this.qrType,
+    this.crc,
+    this.securityField,
+    this.multiKeyImmediatePayments,
+    this.acquirerNetworkId,
+    this.merchantCode,
+    this.aggregatorMerchantCode,
   });
 
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'emvIndicator': emvIndicator.toMap(),
-      'qrType': qrType.toMap(),
-      'crc': crc.toMap(),
-      'securityField': securityField.toMap(),
-      'multiKeyImmediatePayments': multiKeyImmediatePayments.toMap(),
-      'acquirerNetworkId': acquirerNetworkId.toMap(),
-      'merchantCode': merchantCode.toMap(),
-      'aggregatorMerchantCode': aggregatorMerchantCode.toMap(),
+      'emvIndicator': emvIndicator?.toMap(),
+      'qrType': qrType?.toMap(),
+      'crc': crc?.toMap(),
+      'securityField': securityField?.toMap(),
+      'multiKeyImmediatePayments': multiKeyImmediatePayments?.toMap(),
+      'acquirerNetworkId': acquirerNetworkId?.toMap(),
+      'merchantCode': merchantCode?.toMap(),
+      'aggregatorMerchantCode': aggregatorMerchantCode?.toMap(),
     };
   }
 
@@ -153,7 +153,7 @@ class EmvSecurityField {
   final EmvGuiType? gui;
 
   ///Security Hash 256 - 01
-  final String hash;
+  final String? hash;
 
   EmvSecurityField({
     required this.gui,
