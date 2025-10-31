@@ -1,5 +1,4 @@
 
-import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
 import 'package:emv_qr_core/config/helpers/emv_parser.dart';
 import 'package:emv_qr_core/domain/entities/shared/tlv.dart';
 
@@ -14,12 +13,7 @@ class EmvQrService {
   }
 
   ///determine the type of QR code -TAG01
-  EmvQrType getQrType(String value, int monto){
-    if(value == '11') return EmvQrType.static;
-    if(value == '12') return EmvQrType.dinamyc;
-    if(value == '11' && monto > 0) return EmvQrType.static_hybrid;
-    throw Exception("The QR Type can't be defined: ${value}, monto: ${monto}");
-  }
+  String getQrType(String value) => value;
 
   ///TAG63
   String getCRC(String value){
@@ -72,6 +66,85 @@ class EmvQrService {
     return (tlvGUI, tlvCode);
   }
 
+  ///TAG52
+  int getMerchantCategoryCode(String value) => int.parse(value);
+
+  ///TAG58
+  String getCountryCode(String value) => value;
+
+  ///TAG59
+  String getMerchantName(String value) => value;
+
+  ///TAG60
+  String getMerchantCity(String value) => value;
+
+  ///TAG61
+  int getPostalCode(String value) => int.parse(value);
+
+  ///TAG80
+  (TLV gui, TLV channel) getChannel(String value){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvChannel = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    return (tlvGUI, tlvChannel);
+  }
+
+
+
+  ///IVA Condition - TAG81
+  (TLV gui, TLV condition) getIvaCondition(String value, ){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvConditional = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    return (tlvGUI, tlvConditional);
+  }
+
+  //Percent or Value IVA - TAG82
+  (TLV gui, TLV percent) getIvaPercent(String value, ){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvPercent = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    return (tlvGUI, tlvPercent);
+  }
+
+  ///IVA Base TAG83
+  (TLV gui, TLV percent) getIvaBase(String value, ){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvBase = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    return (tlvGUI, tlvBase);
+  }
+
+
+  ///INC Condition - TAG84
+  (TLV gui, TLV condition) getIncCondition(String value, ){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvCondition = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    return (tlvGUI, tlvCondition);
+  }
+
+  ///INC Percent - TAG85
+  (TLV gui, TLV percent) getIncPercent(String value, ){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvPercent = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    return (tlvGUI, tlvPercent);
+  }
+
+  //Consecutivo de transaccion - TAG85
+  (TLV gui, TLV id) getTransactionSequentialId(String value){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvTransactionId = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    return (tlvGUI, tlvTransactionId);
+  }
+
+
+
+
+  //TransactionAmount - TAG54
+  int? getTransactionAmount(String value) => int.tryParse(value);
 
 
 

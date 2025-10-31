@@ -4,4 +4,6 @@ enum EmvGuiType {
   RBM,
   ///CO.COM.CRB.SEC
   CRB,
+  ///CO.COM.RED.TRXID
+  RED,
 }

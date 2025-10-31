@@ -1,35 +1,99 @@
+import 'package:emv_qr_core/config/enums/shared/emv_channel_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_gui_type.dart';
+import 'package:emv_qr_core/config/enums/shared/emv_condition_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
 
 ///Specific entity from EMVCo Standart
 class EmvQrEntity {
-  ///Convenciones QR CODE EMVCo
+  ///1.Convenciones QR CODE EMVCo
   final EmvIndicator? emvIndicator;
 
-  ///Convenciones QR CODE EMVCo
+  ///1.Convenciones QR CODE EMVCo
   final QrType? qrType;
 
-  ///Convenciones QR CODE EMVCo
+  ///1.Convenciones QR CODE EMVCo
   final EmvChecksum? crc;
 
-  ///Convenciones QR CODE EMVCo
+  ///1.Convenciones QR CODE EMVCo
   final EmvSecurityField? securityField;
 
-  ///Trade Information - Información del comercio:
+  ///2. Merchant Information - Información del comercio:
   ///Multi Key immediate payments
   final EmvMerchantAccountInformation? multiKeyImmediatePayments;
 
-  ///Trade Information - Información del comercio:
+  ///2. Merchant Information - Información del comercio:
   ///Identificador de la red del adquiriente - acquirer network identifier
   final AcquirerNetworkId? acquirerNetworkId;
 
-  ///Trade Information - Información del comercio:
+  ///2. Merchant Information - Información del comercio:
   ///Código del comercio
   final MerchantCode? merchantCode;
 
-  ///Trade Information - Información del comercio:
+  ///2. Merchant Information - Información del comercio:
   ///Código del comercio agrupado a partir de la razón social del comercio
   final AggregatorMerchantCode? aggregatorMerchantCode;
+
+  ///3. Información adicional del comercio
+  ///MCC - Código de categoría del comercio
+  final MerchantCategoryCode? merchantCategoryCode;
+
+  ///3. Información adicional del comercio
+  ///Código del país
+  final CountryCode? countryCode;
+
+  ///3. Información adicional del comercio
+  ///Nombre del comercio
+  final MerchantName? merchantName;
+
+  ///3. Información adicional del comercio
+  ///Nombre del comercio
+  final MerchantCity? merchantCity;
+
+  ///3. Información adicional del comercio
+  ///Geo-referencia del comercio
+  final PostalCode? postalCode;
+
+  ///4. Información adicional del comercio
+  ///Identificación del canal que realizó la petición para el QR
+  ///Coexiste con subTAG 11 del TAG62 "Canal de origen" (Mismo fin)
+  final Channel? channel;
+
+  ///4. Información adicional del comercio
+  ///Condición del IVA
+  ///Si 'condition' es '03' y TAG82 es 0, no soporta IVA
+  final IvaCondition? ivaCondition;
+
+  ///4. Información adicional del comercio
+  ///IVA - Valor o porcentaje del IVA
+  final IvaPercent? ivaPercent;
+
+  ///4. Información adicional del comercio
+  ///IVA - Valor de la base del iva
+  final IvaBase? ivaBase;
+
+  ///4. Información adicional del comercio
+  ///INC - Condicional del impuesto INC
+  ///Si 'condition' es '03' y TAG85 es 0, no soporta INC
+  final IncCondition? incCondition;
+
+  ///4. Información adicional del comercio
+  ///Inc - Valor o porcentaje del impuesto del INC
+  final IncPercent? incPercent;
+
+  ///4. Información adicional del comercio
+  ///Consecutivo de transacción - Id de transacción. para QR estático 000000
+  final TransactionSequentialId? transactionSequentialId;
+
+
+
+
+
+  ///5. Detalle de la transacción
+  ///Valor de la transacción
+  ///Valor bruto, no incluye impuestos, propina, etc.
+  final TransactionAmount? transactionAmount;
+
+
 
   EmvQrEntity({
     this.emvIndicator,
@@ -40,39 +104,25 @@ class EmvQrEntity {
     this.acquirerNetworkId,
     this.merchantCode,
     this.aggregatorMerchantCode,
+    this.merchantCategoryCode,
+    this.countryCode,
+    this.merchantName,
+    this.merchantCity,
+    this.postalCode,
+    this.channel,
+    this.ivaCondition,
+    this.ivaPercent,
+    this.ivaBase, 
+    this.incCondition, 
+    this.incPercent, 
+    this.transactionSequentialId,
+
+
+
+
+    this.transactionAmount,
   });
 
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'emvIndicator': emvIndicator?.toMap(),
-      'qrType': qrType?.toMap(),
-      'crc': crc?.toMap(),
-      'securityField': securityField?.toMap(),
-      'multiKeyImmediatePayments': multiKeyImmediatePayments?.toMap(),
-      'acquirerNetworkId': acquirerNetworkId?.toMap(),
-      'merchantCode': merchantCode?.toMap(),
-      'aggregatorMerchantCode': aggregatorMerchantCode?.toMap(),
-    };
-  }
-
-
-  @override
-  String toString() {
-    return 'EmvQrEntity(emvIndicator: $emvIndicator, qrType: $qrType, crc: $crc, securityField: $securityField, multiKeyImmediatePayments: $multiKeyImmediatePayments, acquirerNetworkId: $acquirerNetworkId, merchantCode: $merchantCode, aggregatorMerchantCode: $aggregatorMerchantCode)';
-  }
-
-  @override
-  int get hashCode {
-    return emvIndicator.hashCode ^
-      qrType.hashCode ^
-      crc.hashCode ^
-      securityField.hashCode ^
-      multiKeyImmediatePayments.hashCode ^
-      acquirerNetworkId.hashCode ^
-      merchantCode.hashCode ^
-      aggregatorMerchantCode.hashCode;
-  }
 }
 
 
@@ -313,3 +363,315 @@ class AggregatorMerchantCode {
   @override
   int get hashCode => gui.hashCode ^ merchantCodeGroup.hashCode;
 }
+
+
+///TAG52
+class MerchantCategoryCode {
+  int? code;
+
+  MerchantCategoryCode({
+    this.code,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'code': code,
+    };
+  }
+  @override
+  String toString() => 'MerchantCategoryCode(code: $code)';
+
+  @override
+  int get hashCode => code.hashCode;
+}
+
+///TAG58
+class CountryCode {
+  String? code;
+
+  CountryCode({
+    this.code,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'code': code,
+    };
+  }
+  @override
+  String toString() => 'CountryCode(code: $code)';
+
+  @override
+  int get hashCode => code.hashCode;
+}
+
+
+///TAG59
+class MerchantName {
+  String? name;
+
+  MerchantName({
+    this.name,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+    };
+  }
+  @override
+  String toString() => 'MerchantName(name: $name)';
+
+  @override
+  int get hashCode => name.hashCode;
+}
+
+
+///TAG60
+class MerchantCity {
+  String? city;
+
+  MerchantCity({
+    this.city,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'city': city,
+    };
+  }
+  @override
+  String toString() => 'MerchantCity(city: $city)';
+
+  @override
+  int get hashCode => city.hashCode;
+}
+
+///TAG61
+class PostalCode {
+  int? code;
+
+  PostalCode({
+    this.code,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'code': code,
+    };
+  }
+  @override
+  String toString() => 'PostalCode(code: $code)';
+
+  @override
+  int get hashCode => code.hashCode;
+}
+
+
+///TAG80
+class Channel {
+  EmvGuiType? gui;
+  EmvChannelType? channel;
+
+  Channel({
+    this.gui,
+    this.channel
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui': gui?.name,
+      'channel': channel?.name,
+    };
+  }
+  @override
+  String toString() => 'Channel(gui: $gui, channel: ${channel?.name})';
+
+  @override
+  int get hashCode => gui.hashCode ^ channel.hashCode;
+}
+
+
+///TAG81
+class IvaCondition {
+  EmvGuiType? gui;
+  EmvConditionType? condition;
+
+  IvaCondition({
+    this.gui,
+    this.condition
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui': gui?.name,
+      'condition': condition?.name,
+    };
+  }
+  @override
+  String toString() => 'IvaCondition(gui: $gui, IvaConconditiondition: ${condition?.name})';
+
+  @override
+  int get hashCode => gui.hashCode ^ condition.hashCode;
+}
+
+
+///TAG82
+class IvaPercent {
+  EmvGuiType? gui;
+  int? percent;
+
+  IvaPercent({
+    this.gui,
+    this.percent,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui' : gui,
+      'percent': percent,
+    };
+  }
+  @override
+  String toString() => 'IvaPercent(gui: $gui, percent: $percent)';
+
+  @override
+  int get hashCode => gui.hashCode ^ percent.hashCode;
+}
+
+
+///TAG83
+class IvaBase {
+  EmvGuiType? gui;
+  int? base;
+
+  IvaBase({
+    this.gui,
+    this.base,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui' : gui,
+      'base': base,
+    };
+  }
+  @override
+  String toString() => 'IvaBase(gui: $gui, base: $base)';
+
+  @override
+  int get hashCode => gui.hashCode ^ base.hashCode;
+}
+
+
+
+///TAG84
+class IncCondition {
+  EmvGuiType? gui;
+  EmvConditionType? condition;
+
+  IncCondition({
+    this.gui,
+    this.condition
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui': gui?.name,
+      'condition': condition?.name,
+    };
+  }
+  @override
+  String toString() => 'IncCondition(gui: $gui, : ${condition?.name})';
+
+  @override
+  int get hashCode => gui.hashCode ^ condition.hashCode;
+}
+
+///TAG85
+class IncPercent {
+  EmvGuiType? gui;
+  int? percent;
+
+  IncPercent({
+    this.gui,
+    this.percent,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui' : gui,
+      'percent': percent,
+    };
+  }
+  @override
+  String toString() => 'IncPercent(gui: $gui, percent: $percent)';
+
+  @override
+  int get hashCode => gui.hashCode ^ percent.hashCode;
+}
+
+///TAG90
+class TransactionSequentialId {
+  EmvGuiType? gui;
+  String? id;
+
+  TransactionSequentialId({
+    this.gui,
+    this.id,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui' : gui,
+      'id': id,
+    };
+  }
+  @override
+  String toString() => 'TransactionSequentialId(gui: $gui, id: $id)';
+
+  @override
+  int get hashCode => gui.hashCode ^ id.hashCode;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///TAG54
+class TransactionAmount {
+  ///Valor bruto, no incluye impuestos ni propina
+  int? amount;
+
+  TransactionAmount({
+    this.amount,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'amount': amount,
+    };
+  }
+  @override
+  String toString() => 'TransactionAmount(amount: $amount)';
+
+  @override
+  int get hashCode => amount.hashCode;
+}
+
