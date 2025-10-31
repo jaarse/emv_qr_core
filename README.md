@@ -6,7 +6,9 @@ This is a Dart Package:
 
 * Coming soon: 🇧🇷 🇲🇽
 ## Getting started
-
+```dart
+Please, wait for v1.0.0, we are building... 🔨
+```
 You can create a test:
 
 ```dart
