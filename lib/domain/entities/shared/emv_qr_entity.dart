@@ -6,82 +6,122 @@ import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
 ///Specific entity from EMVCo Standart
 class EmvQrEntity {
   ///1.Convenciones QR CODE EMVCo
+  ///
+  ///[TAG00]
   final EmvIndicator? emvIndicator;
 
   ///1.Convenciones QR CODE EMVCo
+  ///
+  ///[TAG01]
   final QrType? qrType;
 
   ///1.Convenciones QR CODE EMVCo
+  ///
+  ///[TAG63]
   final EmvChecksum? crc;
 
   ///1.Convenciones QR CODE EMVCo
+  ///
+  ///[TAG91]
   final EmvSecurityField? securityField;
 
   ///2. Merchant Information - Información del comercio:
   ///Multi Key immediate payments
+  ///
+  ///[TAG26]
   final EmvMerchantAccountInformation? multiKeyImmediatePayments;
 
   ///2. Merchant Information - Información del comercio:
   ///Identificador de la red del adquiriente - acquirer network identifier
+  ///
+  ///[TAG49]
   final AcquirerNetworkId? acquirerNetworkId;
 
   ///2. Merchant Information - Información del comercio:
   ///Código del comercio
+  ///
+  ///[TAG50]
   final MerchantCode? merchantCode;
 
   ///2. Merchant Information - Información del comercio:
   ///Código del comercio agrupado a partir de la razón social del comercio
+  ///
+  ///[TAG51]
   final AggregatorMerchantCode? aggregatorMerchantCode;
 
   ///3. Información adicional del comercio
   ///MCC - Código de categoría del comercio
+  ///
+  ///[TAG52]
   final MerchantCategoryCode? merchantCategoryCode;
 
   ///3. Información adicional del comercio
   ///Código del país
+  ///
+  ///[TAG58]
   final CountryCode? countryCode;
 
   ///3. Información adicional del comercio
   ///Nombre del comercio
+  ///
+  ///[TAG59]
   final MerchantName? merchantName;
 
   ///3. Información adicional del comercio
   ///Nombre del comercio
+  ///
+  ///[TAG060]
   final MerchantCity? merchantCity;
 
   ///3. Información adicional del comercio
   ///Geo-referencia del comercio
+  ///
+  ///[TAG61]
   final PostalCode? postalCode;
 
   ///4. Información adicional del comercio
   ///Identificación del canal que realizó la petición para el QR
   ///Coexiste con subTAG 11 del TAG62 "Canal de origen" (Mismo fin)
+  ///
+  ///[TAG80]
   final Channel? channel;
 
   ///4. Información adicional del comercio
   ///Condición del IVA
   ///Si 'condition' es '03' y TAG82 es 0, no soporta IVA
+  ///
+  ///[TAG81]
   final IvaCondition? ivaCondition;
 
   ///4. Información adicional del comercio
   ///IVA - Valor o porcentaje del IVA
+  ///
+  ///[TAG82]
   final IvaPercent? ivaPercent;
 
   ///4. Información adicional del comercio
   ///IVA - Valor de la base del iva
+  ///
+  ///[TAG83]
   final IvaBase? ivaBase;
 
   ///4. Información adicional del comercio
   ///INC - Condicional del impuesto INC
   ///Si 'condition' es '03' y TAG85 es 0, no soporta INC
+  ///
+  ///[TAG84]
   final IncCondition? incCondition;
 
   ///4. Información adicional del comercio
   ///Inc - Valor o porcentaje del impuesto del INC
+  ///
+  ///[TAG85]
   final IncPercent? incPercent;
 
   ///4. Información adicional del comercio
   ///Consecutivo de transacción - Id de transacción. para QR estático 000000
+  ///
+  ///[TAG90]
   final TransactionSequentialId? transactionSequentialId;
 
 
