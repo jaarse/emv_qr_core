@@ -1,0 +1,42 @@
+linter:
+  rules:
+    # === Estilo y consistencia ===
+    always_use_package_imports: true
+    prefer_single_quotes: true
+    avoid_print: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    unnecessary_this: false
+    sort_constructors_first: false
+    require_trailing_commas: true
+    avoid_redundant_argument_values: true
+    prefer_final_locals: true
+    prefer_final_fields: true
+    unnecessary_late: true
+    prefer_is_not_empty: true
+    curly_braces_in_flow_control_structures: true
+
+    # === Seguridad y buenas prácticas ===
+    avoid_types_as_parameter_names: true
+    avoid_unnecessary_containers: true
+    use_key_in_widget_constructors: true
+    always_declare_return_types: true
+    unnecessary_null_checks: true
+    avoid_init_to_null: true
+    no_leading_underscores_for_local_identifiers: true
+    cancel_subscriptions: true
+
+    # === Null safety y código limpio ===
+    prefer_null_aware_operators: true
+    unnecessary_nullable_for_final_variable_declarations: true
+    null_closures: true
+    unnecessary_string_interpolations: true
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+  errors:
+    invalid_annotation_target: ignore
+    todo: ignore
