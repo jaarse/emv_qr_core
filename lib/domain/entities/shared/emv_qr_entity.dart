@@ -182,6 +182,12 @@ class EmvQrEntity {
   final DiscountApp? discountApp;
 
 
+  ///5. Información del comercio - idioma
+  ///Información del comercio en idioma alternativo
+  ///
+  ///[TAG64]
+  final MerchantInfoLanguage? merchantInfoLanguage;
+
 
 
 
@@ -197,6 +203,7 @@ class EmvQrEntity {
 
 
   EmvQrEntity({
+    this.merchantInfoLanguage,
     this.serviceCodeForCollection, 
     this.referencePaymentOrPhoneNumber, 
     this.collectedProductType, 
@@ -926,7 +933,32 @@ class DiscountApp {
 
 
 
+///TAG63
+class MerchantInfoLanguage {
+  final String? language;
+  final String? name;
+  final String? city;
+  MerchantInfoLanguage({
+    this.language,
+    this.name,
+    this.city,
+  });
+  
 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'language': language,
+      'name': name,
+      'city': city,
+    };
+  }
+
+  @override
+  String toString() => 'MerchantInfoLanguage(language: $language, name: $name, city: $city)';
+
+  @override
+  int get hashCode => language.hashCode ^ name.hashCode ^ city.hashCode;
+}
 
 
 

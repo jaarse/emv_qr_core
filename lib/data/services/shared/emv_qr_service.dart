@@ -20,6 +20,15 @@ class EmvQrService {
     return value;
   }
 
+  ///TAG64
+  (TLV language, TLV name, TLV city) getMerchantInfoLanguage(String value){
+    final tlvs = EmvParser.parse(value);
+    final tlvLanguage = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvName = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    final tlvCity = tlvs.firstWhere((tlv) => tlv.tag == 2, orElse: () => TLV.empty());
+    return (tlvLanguage, tlvName, tlvCity);
+  }
+
 
   ///Security Field - TAG91
   (TLV gui, TLV hash) getSecurityField(String value){

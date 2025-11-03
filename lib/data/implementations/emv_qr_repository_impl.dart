@@ -50,6 +50,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
       AdditionalRefDestinationAccount? additionalRefDestinationAccount;
       TransferenceProductType? transferenceProductType;
       DiscountApp? discountApp;
+      MerchantInfoLanguage? merchantInfoLanguage;
 
 
 
@@ -146,9 +147,17 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
             );
             break;
 
-
           case 63:
             crc = EmvChecksum(crc: service.getCRC(tlv.value));
+            break;
+
+          case 64:
+            final (language, name, city) = service.getMerchantInfoLanguage(tlv.value);
+            merchantInfoLanguage = MerchantInfoLanguage(
+              language: language.value,
+              name: name.value,
+              city: city.value, 
+            );
             break;
 
           case 80:
@@ -339,6 +348,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
         additionalRefDestinationAccount: additionalRefDestinationAccount,
         transferenceProductType: transferenceProductType,
         discountApp: discountApp,
+        merchantInfoLanguage: merchantInfoLanguage,
 
       );
       
