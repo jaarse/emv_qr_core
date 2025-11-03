@@ -1,6 +1,7 @@
 import 'package:emv_qr_core/config/enums/shared/emv_channel_type.dart';
-import 'package:emv_qr_core/config/enums/shared/emv_gui_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_condition_type.dart';
+import 'package:emv_qr_core/config/enums/shared/emv_gui_type.dart';
+import 'package:emv_qr_core/config/enums/shared/emv_product_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
 
 ///Specific entity from EMVCo Standart
@@ -79,50 +80,110 @@ class EmvQrEntity {
   ///[TAG61]
   final PostalCode? postalCode;
 
-  ///4. Información adicional del comercio
+  ///3. Información adicional del comercio
   ///Identificación del canal que realizó la petición para el QR
   ///Coexiste con subTAG 11 del TAG62 "Canal de origen" (Mismo fin)
   ///
   ///[TAG80]
   final Channel? channel;
 
-  ///4. Información adicional del comercio
+  ///3. Información adicional del comercio
   ///Condición del IVA
   ///Si 'condition' es '03' y TAG82 es 0, no soporta IVA
   ///
   ///[TAG81]
   final IvaCondition? ivaCondition;
 
-  ///4. Información adicional del comercio
+  ///3. Información adicional del comercio
   ///IVA - Valor o porcentaje del IVA
   ///
   ///[TAG82]
   final IvaPercent? ivaPercent;
 
-  ///4. Información adicional del comercio
+  ///3. Información adicional del comercio
   ///IVA - Valor de la base del iva
   ///
   ///[TAG83]
   final IvaBase? ivaBase;
 
-  ///4. Información adicional del comercio
+  ///3. Información adicional del comercio
   ///INC - Condicional del impuesto INC
   ///Si 'condition' es '03' y TAG85 es 0, no soporta INC
   ///
   ///[TAG84]
   final IncCondition? incCondition;
 
-  ///4. Información adicional del comercio
+  ///3. Información adicional del comercio
   ///Inc - Valor o porcentaje del impuesto del INC
   ///
   ///[TAG85]
   final IncPercent? incPercent;
 
-  ///4. Información adicional del comercio
+  ///3. Información adicional del comercio
   ///Consecutivo de transacción - Id de transacción. para QR estático 000000
   ///
   ///[TAG90]
   final TransactionSequentialId? transactionSequentialId;
+
+
+
+  ///4. Campos para otras transacciones
+  ///Codigo de servicio en operaciones de recaudo o recarga
+  ///
+  ///[TAG92]
+  final ServiceCodeForCollection? serviceCodeForCollection;
+
+  ///4. Campos para otras transacciones
+  ///Referencia de pago o celular en operaciones de recaudo o recarga
+  ///
+  ///[TAG93]
+  final ReferencePaymentOrPhoneNumber? referencePaymentOrPhoneNumber;
+
+  ///4. Campos para otras transacciones
+  ///Tipo de producto en operaciones de recaudo o recarga
+  ///
+  ///[TAG94]
+  final CollectedProductType? collectedProductType;
+
+
+  ///4. Campos para otras transacciones
+  ///Cuenta de origen en op de transferencia
+  ///
+  ///[TAG95]
+  final OriginAccount? originAccount;
+
+
+
+  ///4. Campos para otras transacciones
+  ///Número de cuenta destino para transferencia
+  ///
+  ///[TAG96]
+  final DestinationAccount? destinationAccount;
+
+
+  ///4. Campos para otras transacciones
+  ///Referencia adicional de cuenta destino en operaciones de transferencia
+  ///
+  ///[TAG97]
+  final AdditionalRefDestinationAccount? additionalRefDestinationAccount;
+
+
+  ///4. Campos para otras transacciones
+  ///Tipo de producto en operaciones de transferencia
+  ///
+  ///[TAG98]
+  final TransferenceProductType? transferenceProductType;
+
+
+  ///4. Campos para otras transacciones
+  ///Usasdo para la aplicación de decisiones sobre descuento
+  ///
+  ///[TAG99]
+  final DiscountApp? discountApp;
+
+
+
+
 
 
 
@@ -136,6 +197,14 @@ class EmvQrEntity {
 
 
   EmvQrEntity({
+    this.serviceCodeForCollection, 
+    this.referencePaymentOrPhoneNumber, 
+    this.collectedProductType, 
+    this.originAccount, 
+    this.destinationAccount, 
+    this.additionalRefDestinationAccount, 
+    this.transferenceProductType, 
+    this.discountApp,
     this.emvIndicator,
     this.qrType,
     this.crc,
@@ -674,6 +743,186 @@ class TransactionSequentialId {
   int get hashCode => gui.hashCode ^ id.hashCode;
 }
 
+///TAG92
+class ServiceCodeForCollection {
+  final String? code;
+
+  ServiceCodeForCollection({this.code});
+
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'code' : code,
+    };
+  }
+  @override
+  String toString() => 'ServiceCodeForCollection(code: $code)';
+
+  @override
+  int get hashCode => code.hashCode;
+}
+
+//TAG93
+class ReferencePaymentOrPhoneNumber {
+  final String? ref;
+
+  ReferencePaymentOrPhoneNumber({ this.ref});
+
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'ref' : ref,
+    };
+  }
+  @override
+  String toString() => 'ReferencePaymentOrPhoneNumber(ref: $ref)';
+
+  @override
+  int get hashCode => ref.hashCode;
+}
+
+///TAG94
+class CollectedProductType {
+  final String? type;
+
+  CollectedProductType({this.type});
+
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'type' : type,
+    };
+  }
+  @override
+  String toString() => 'CollectedProductType(type: $type)';
+
+  @override
+  int get hashCode => type.hashCode;
+}
+
+
+///TAG95
+class OriginAccount {
+  ///Las 3 primeras posiciones son el FIID de la Entidad las siguientes 19 posiciones es para la cuenta
+  final String? origin;
+
+  OriginAccount({this.origin});
+
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'origin' : origin,
+    };
+  }
+  @override
+  String toString() => 'OriginAccount(origin: $origin)';
+
+  @override
+  int get hashCode => origin.hashCode;
+}
+
+
+///TAG96
+class DestinationAccount {
+  ///Las 3 primeras posiciones son el FIID de la Entidad las siguientes 19 posiciones es para la cuenta
+  final String? dest;
+
+  DestinationAccount({this.dest});
+
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'dest' : dest,
+    };
+  }
+  @override
+  String toString() => 'DestinationAccount(dest: $dest)';
+
+  @override
+  int get hashCode => dest.hashCode;
+}
+
+///TAG97
+class AdditionalRefDestinationAccount {
+  ///Type/number document
+  final String? ref;
+
+  AdditionalRefDestinationAccount({this.ref});
+
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'ref' : ref,
+    };
+  }
+  @override
+  String toString() => 'AdditionalRefDestinationAccount(ref: $ref)';
+
+  @override
+  int get hashCode => ref.hashCode;
+}
+
+///TAG98
+class TransferenceProductType {
+  final EmvProductType? type;
+
+  TransferenceProductType({this.type});
+
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'type' : type,
+    };
+  }
+  @override
+  String toString() => 'TransferenceProductType(type: $type)';
+
+  @override
+  int get hashCode => type.hashCode;
+}
+
+///TAG99
+class DiscountApp {
+  final EmvGuiType? gui;
+  final String? discountIndicator;
+  final String? discountAmount;
+  final String? discountAmountIVA;
+  final String? discountPercent;
+  final String? discountValue;
+  final String? discountInquiry;
+  DiscountApp({
+    this.gui,
+    this.discountIndicator,
+    this.discountAmount,
+    this.discountAmountIVA,
+    this.discountPercent,
+    this.discountValue,
+    this.discountInquiry,
+  });
+
+
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'gui': gui?.name,
+      'discountIndicator': discountIndicator,
+      'discountAmount': discountAmount,
+      'discountAmountIVA': discountAmountIVA,
+      'discountPercent': discountPercent,
+      'discountValue': discountValue,
+      'discountInquiry': discountInquiry,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'DiscountApp(gui: $gui, discountIndicator: $discountIndicator, discountAmount: $discountAmount, discountAmountIVA: $discountAmountIVA, discountPercent: $discountPercent, discountValue: $discountValue, discountInquiry: $discountInquiry)';
+  }
+
+  @override
+  int get hashCode {
+    return gui.hashCode ^
+      discountIndicator.hashCode ^
+      discountAmount.hashCode ^
+      discountAmountIVA.hashCode ^
+      discountPercent.hashCode ^
+      discountValue.hashCode ^
+      discountInquiry.hashCode;
+  }
+}
 
 
 

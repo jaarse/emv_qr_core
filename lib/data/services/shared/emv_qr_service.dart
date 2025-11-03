@@ -132,7 +132,7 @@ class EmvQrService {
     return (tlvGUI, tlvPercent);
   }
 
-  //Consecutivo de transaccion - TAG85
+  ///Consecutivo de transaccion - TAG85
   (TLV gui, TLV id) getTransactionSequentialId(String value){
     final tlvs = EmvParser.parse(value);
     final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
@@ -141,9 +141,43 @@ class EmvQrService {
   }
 
 
+  ///Código del Servicio para Recaudo o Recarga - TAG92
+  String getServiceCodeForCollection(String value) => value;
+
+  ///Referencia para Recaudo o Número Celular para Recarga - TAG93
+  String getReferencePaymentOrPhoneNumber(String value) => value;
+
+  ///Tipo de Producto para Recaudo - TAG94
+  String getCollectedProductType(String value) => value;
+
+  ///Cuenta de origen - TAG95
+  String getOriginAccount(String value) => value;
+
+  ///Cuenta de destino para transferencia - TAG96
+  String getDestinationAccount(String value) => value;
+
+  ///Referencia adicional de Cuenta Destino para Transferencia - TAG97
+  String getAdditionalRefDestinationAccount(String value) => value;
+
+  ///Tipo de producto Transferencia - TAG98
+  int? getTransferenceProductType(String value) => int.tryParse(value);
+
+  ///Campo Aplicación de Descuento - TAG99
+  (TLV gui, TLV indicatorDesc, TLV amountDesc, TLV ivaDesc, TLV percentDesc, TLV valueDesc, TLV inquiryDesc) getDiscountApp(String value){
+    final tlvs = EmvParser.parse(value);
+    final tlvGUI = tlvs.firstWhere((tlv) => tlv.tag == 0, orElse: () => TLV.empty());
+    final tlvIndicatorDesc = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    final tlvAmountDesc = tlvs.firstWhere((tlv) => tlv.tag == 2, orElse: () => TLV.empty());
+    final tlvIvaDesc = tlvs.firstWhere((tlv) => tlv.tag == 3, orElse: () => TLV.empty());
+    final tlvPercentDesc = tlvs.firstWhere((tlv) => tlv.tag == 4, orElse: () => TLV.empty());
+    final tlvValueDesc = tlvs.firstWhere((tlv) => tlv.tag == 5, orElse: () => TLV.empty());
+    final tlvInquiryDesc = tlvs.firstWhere((tlv) => tlv.tag == 6, orElse: () => TLV.empty());
+    return (tlvGUI, tlvIndicatorDesc, tlvAmountDesc, tlvIvaDesc, tlvPercentDesc, tlvValueDesc, tlvInquiryDesc);
+  }
 
 
-  //TransactionAmount - TAG54
+
+  ///Valor de transacción _ TAG54
   int? getTransactionAmount(String value) => int.tryParse(value);
 
 

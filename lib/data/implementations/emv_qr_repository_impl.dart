@@ -1,3 +1,4 @@
+import 'package:emv_qr_core/config/enums/shared/emv_product_type.dart';
 import 'package:emv_qr_core/config/helpers/emv_parser.dart';
 import 'package:emv_qr_core/config/shared/debug_print.dart';
 import 'package:emv_qr_core/domain/entities/shared/emv_qr_entity.dart';
@@ -41,6 +42,19 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
       IncCondition? incCondition;
       IncPercent? incPercent;
       TransactionSequentialId? transactionSequentialId;
+      ServiceCodeForCollection? serviceCodeForCollection;
+      ReferencePaymentOrPhoneNumber? referencePaymentOrPhoneNumber;
+      CollectedProductType? collectedProductType;
+      OriginAccount? originAccount;
+      DestinationAccount? destinationAccount;
+      AdditionalRefDestinationAccount? additionalRefDestinationAccount;
+      TransferenceProductType? transferenceProductType;
+      DiscountApp? discountApp;
+
+
+
+
+
 
       TransactionAmount? transactionAmount;
 
@@ -190,6 +204,71 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
             );
             break;
 
+          case 92:
+            serviceCodeForCollection = ServiceCodeForCollection(
+              code: service.getServiceCodeForCollection(tlv.value),
+            );
+            break;
+
+          case 93:
+            referencePaymentOrPhoneNumber = ReferencePaymentOrPhoneNumber(
+              ref: service.getReferencePaymentOrPhoneNumber(tlv.value),
+            );
+            break;
+
+
+          case 94:
+            collectedProductType = CollectedProductType(
+              type: service.getCollectedProductType(tlv.value),
+            );
+            break;
+
+          case 95:
+            originAccount = OriginAccount(
+              origin: service.getOriginAccount(tlv.value),
+            );
+            break;
+
+          case 96:
+            destinationAccount = DestinationAccount(
+              dest: service.getDestinationAccount(tlv.value),
+            );
+            break;
+
+          case 97:
+            additionalRefDestinationAccount = AdditionalRefDestinationAccount(
+              ref: service.getAdditionalRefDestinationAccount(tlv.value),
+            );
+            break;
+
+          case 98:
+            final typeInt = service.getTransferenceProductType(tlv.value);
+            transferenceProductType = TransferenceProductType(
+              type: EmvProductType.values[typeInt! - 1],
+            );
+            break;
+
+          case 99:
+            final (
+              gui, 
+              indicatorDesc, 
+              amountDesc, 
+              ivaDesc, 
+              percentDesc, 
+              valueDesc, 
+              inquiryDesc,
+            ) = service.getDiscountApp(tlv.value); 
+            discountApp = DiscountApp(
+              gui: EmvParser.defineGUIType(gui.value),
+              discountIndicator: indicatorDesc.value,
+              discountAmount: amountDesc.value,
+              discountAmountIVA: ivaDesc.value,
+              discountPercent: percentDesc.value,
+              discountValue: valueDesc.value,
+              discountInquiry: inquiryDesc.value,
+            );
+            break;
+ 
           default:
             break;
         }
@@ -252,6 +331,14 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
         postalCode : postalCode,
         channel : channel,
         transactionSequentialId : transactionSequentialId,
+        serviceCodeForCollection: serviceCodeForCollection,
+        referencePaymentOrPhoneNumber: referencePaymentOrPhoneNumber,
+        collectedProductType: collectedProductType,
+        originAccount: originAccount,
+        destinationAccount: destinationAccount,
+        additionalRefDestinationAccount: additionalRefDestinationAccount,
+        transferenceProductType: transferenceProductType,
+        discountApp: discountApp,
 
       );
       
