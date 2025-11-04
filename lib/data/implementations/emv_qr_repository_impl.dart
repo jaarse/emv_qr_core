@@ -52,13 +52,12 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
       DiscountApp? discountApp;
       MerchantInfoLanguage? merchantInfoLanguage;
       MerchantInfo? merchantInfo;
-
-
-
-
-
-
+      CurrencyCode? currencyCode; 
       TransactionAmount? transactionAmount;
+      TipIndicator? tipIndicator;
+      TipValue? tipValue;
+      TipPercent? tipPercent;
+
 
 
 
@@ -117,12 +116,32 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
               code: service.getMerchantCategoryCode(tlv.value)
             );
             break;
+          
+          case 53:
+            currencyCode = CurrencyCode(
+              iso: service.getCurretCode(tlv.value),
+            );
 
           case 54:
             transactionAmount = TransactionAmount(
               amount: service.getTransactionAmount(tlv.value)
             );
             break;
+
+          case 55:
+            tipIndicator = TipIndicator(
+              indicator: service.getTipIndicator(tlv.value),
+            );
+
+          case 56:
+            tipValue = TipValue(
+              value: service.getTipValue(tlv.value),
+            );
+
+          case 57:
+            tipPercent = TipPercent(
+              percent: service.getTipPercent(tlv.value),
+            );
 
           case 58:
             countryCode = CountryCode(
@@ -148,7 +167,6 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
             );
             break;
 
-
           case 62:
             final (billingNumber, mobileNumber, storeLabel, loyaltyNumber, referenceLabel, customerNumber, terminalLabel, transactionType, beRequestedCustomer, nit, channel) = service.getMerchantInfo(tlv.value);
             merchantInfo = MerchantInfo(
@@ -165,6 +183,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
               channel: channel.value,
             );
             break;
+
 
           case 63:
             crc = EmvChecksum(crc: service.getCRC(tlv.value));
@@ -331,12 +350,6 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
 
 
 
-
-
-
-
-
-
       //**Construcción de la entidad servida al user*/
       final emvQr = EmvQrEntity(
         emvIndicator: emvIndicator,
@@ -370,7 +383,10 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
         discountApp: discountApp,
         merchantInfoLanguage: merchantInfoLanguage,
         merchantInfo: merchantInfo,
-
+        currencyCode: currencyCode,
+        tipIndicator: tipIndicator,
+        tipValue: tipValue,
+        tipPercent: tipPercent,
       );
       
       return emvQr; //**Entidad creada */

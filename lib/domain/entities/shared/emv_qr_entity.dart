@@ -187,6 +187,13 @@ class EmvQrEntity {
   ///[TAG62]
   final MerchantInfo? merchantInfo;
 
+
+  ///7. Detalle de la transacción
+  ///Código de moneda
+  ///
+  ///[TAG53]
+  final CurrencyCode? currencyCode;
+
   ///7. Detalle de la transacción
   ///Valor de la transacción
   ///Valor bruto, no incluye impuestos, propina, etc.
@@ -195,7 +202,35 @@ class EmvQrEntity {
   final TransactionAmount? transactionAmount;
 
 
+  //7. Detalle de la transacción
+  ///indicador de propina
+  ///Si valor es -> 1: Billetera debe solicitar el valor de propina (no se llenan tags 56 y 57) 2: Indica que el tag 56 esta lleno excluyendo el tag 57 3: Indica que el tag 57 esta lleno excluyendo el tag 56 NOTA: Si no viene el campo, no tiene propina
+  ///
+  ///[TAG55]
+  final TipIndicator? tipIndicator;
+
+
+  ///7. Detalle de la transacción
+  ///Valor de la propina
+  ///Excluyente del tag 57. Se llena solo si tag 55 tiene valor “02”
+  ///
+  ///[TAG56]
+  final TipValue? tipValue;
+
+
+  ///7. Detalle de la transacción
+  ///Porcentaje de la propina
+  ///Excluyente del tag 56. Se llena solo si tag 55 tiene valor “03”
+  ///
+  ///[TAG57]
+  final TipPercent? tipPercent;
+
+
   EmvQrEntity({
+    this.currencyCode,
+    this.tipIndicator,
+    this.tipValue,
+    this.tipPercent,
     this.merchantInfo,
     this.merchantInfoLanguage,
     this.serviceCodeForCollection,
@@ -226,9 +261,13 @@ class EmvQrEntity {
     this.incCondition,
     this.incPercent,
     this.transactionSequentialId,
-
     this.transactionAmount,
   });
+
+  @override
+  String toString() {
+    return 'EmvQrEntity(emvIndicator: $emvIndicator, qrType: $qrType, crc: $crc, securityField: $securityField, multiKeyImmediatePayments: $multiKeyImmediatePayments, acquirerNetworkId: $acquirerNetworkId, merchantCode: $merchantCode, aggregatorMerchantCode: $aggregatorMerchantCode, merchantCategoryCode: $merchantCategoryCode, countryCode: $countryCode, merchantName: $merchantName, merchantCity: $merchantCity, postalCode: $postalCode, channel: $channel, ivaCondition: $ivaCondition, ivaPercent: $ivaPercent, ivaBase: $ivaBase, incCondition: $incCondition, incPercent: $incPercent, transactionSequentialId: $transactionSequentialId, serviceCodeForCollection: $serviceCodeForCollection, referencePaymentOrPhoneNumber: $referencePaymentOrPhoneNumber, collectedProductType: $collectedProductType, originAccount: $originAccount, destinationAccount: $destinationAccount, additionalRefDestinationAccount: $additionalRefDestinationAccount, transferenceProductType: $transferenceProductType, discountApp: $discountApp, merchantInfoLanguage: $merchantInfoLanguage, merchantInfo: $merchantInfo, currencyCode: $currencyCode, transactionAmount: $transactionAmount, tipIndicator: $tipIndicator, tipValue: $tipValue, tipPercent: $tipPercent)';
+  }
 }
 
 ///TAG00
@@ -903,6 +942,26 @@ class MerchantInfoLanguage {
   int get hashCode => language.hashCode ^ name.hashCode ^ city.hashCode;
 }
 
+
+///TAG53
+class CurrencyCode {
+  final String? iso;
+
+  CurrencyCode({this.iso});
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'iso': iso,
+    };
+  }
+
+  @override
+  String toString() => 'CurrencyCode(iso: $iso)';
+
+  @override
+  int get hashCode => iso.hashCode;
+}
+
 ///TAG54
 class TransactionAmount {
   ///Valor bruto, no incluye impuestos ni propina
@@ -920,3 +979,67 @@ class TransactionAmount {
   @override
   int get hashCode => amount.hashCode;
 }
+
+///TAG55
+class TipIndicator {
+  ///1: Billetera debe solicitar el valor de propina (no se llenan tags 56 y 57) 2: Indica que el tag 56 esta lleno excluyendo el tag 57 3: Indica que el tag 57 esta lleno excluyendo el tag 56 NOTA: Si no viene el campo, no tiene propina
+  int? indicator;
+
+  TipIndicator({this.indicator});
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'indicator': indicator};
+  }
+
+  @override
+  String toString() => 'TipIndicator(indicator: $indicator)';
+
+  @override
+  int get hashCode => indicator.hashCode;
+}
+
+///TAG56
+class TipValue {
+  ///Excluyente del tag 57. Se llena solo si tag 55 tiene valor “02”
+  final int? value;
+  TipValue({
+    this.value,
+  });
+
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'value': value,
+    };
+  }
+
+  @override
+  String toString() => 'TipValue(value: $value)';
+
+  @override
+  int get hashCode => value.hashCode;
+}
+
+///TAG57
+class TipPercent {
+  ///Excluyente del tag 56. Se llena solo si tag 55 tiene valor “03”
+  final int? percent;
+  TipPercent({
+    this.percent,
+  });
+
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'percent': percent,
+    };
+  }
+
+  @override
+  String toString() => 'TipPercent(percent: $percent)';
+
+  @override
+  int get hashCode => percent.hashCode;
+}
+
+

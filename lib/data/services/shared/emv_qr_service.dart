@@ -202,11 +202,22 @@ class EmvQrService {
     return (tlvBillingNumber, tlvImobileNumber, tlvStoreLabel, tlvLoyaltyNumber, tlvReferenceLabel, tlvcustomerNumber, tlvTerminalLabel, tlvTransactionType, tlvBeRequestedCustomer, tlvNit, tlvChannel);
   }
 
-
-
+  ///TAG53
+  String getCurretCode(String value) => value;
 
   ///Valor de transacción _ TAG54
   int? getTransactionAmount(String value) => int.tryParse(value);
+  
+  ///TAG55
+  int getTipIndicator(String value) => int.tryParse(value) ?? 0;
+
+  ///TAG56
+  int getTipValue(String value) => int.tryParse(value) ?? 0;
+
+  ///TAG57
+  int getTipPercent(String value) => int.tryParse(value) ?? 0;
+
+
 
 
 
