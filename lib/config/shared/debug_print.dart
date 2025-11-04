@@ -1,5 +1,5 @@
-const bool kDebugMode = bool.fromEnvironment('dart.vm.product') == false;
+//const bool kDebugMode = bool.fromEnvironment('dart.vm.product') == false;
 void debugPrint(Object? object){
   // ignore: avoid_print
-  if(kDebugMode) print(object);
+  //const bool kDebugMode = bool.fromEnvironment('dart.vm.product') == false;if(kDebugMode) print(object);
 }
