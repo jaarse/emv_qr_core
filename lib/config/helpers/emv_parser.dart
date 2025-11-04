@@ -37,6 +37,7 @@ class EmvParser {
 
 
   static EmvQrType defineQrType(String value, int monto){
+    if(value.isEmpty) return EmvQrType.empty;
     if(value == '11' && monto > 0) return EmvQrType.static_hybrid;
     if(value == '11') return EmvQrType.static;
     if(value == '12') return EmvQrType.dinamyc;
@@ -44,6 +45,7 @@ class EmvParser {
   }
 
   static EmvGuiType defineGUIType(String gui){
+    if(gui.isEmpty) return EmvGuiType.empty;
     if(gui.contains('CO.COM.RBM')) return EmvGuiType.RBM;
     if(gui.contains('CO.COM.CRB')) return EmvGuiType.CRB;
     if(gui.contains('CO.COM.RED')) return EmvGuiType.RED;
@@ -54,6 +56,7 @@ class EmvParser {
   ///PARA IVA: Depende del valor o porcentaje del IVA.
   ///PARA INC: Depende del valor o porcentaje del INC.
   static EmvConditionType? defineCondition(String condition, int ivaPercent){
+    if(condition.isEmpty) return EmvConditionType.empty;
     if(condition == '03' && ivaPercent == 0) return EmvConditionType.no_supported;
     if(condition == '01') return EmvConditionType.wallet;
     if(condition == '02') return EmvConditionType.merchant;
@@ -68,6 +71,7 @@ class EmvParser {
 
   ///Determina el propósito de la transacción
   static EmvTransactionType defineTransacctionType(String value){
+    if(value.isEmpty) return EmvTransactionType.empty;
     if(value == '00') return EmvTransactionType.purchases;
     if(value == '02') return EmvTransactionType.cancellations;
     if(value == '03') return EmvTransactionType.transfers;
@@ -80,6 +84,7 @@ class EmvParser {
 
   ///Define los datos que deben ser requeridos al consumidor
   static EmvBeRequestedCustomer defineRequestedCustomerData(String value){
+    if(value.isEmpty) return EmvBeRequestedCustomer.empty;
     if(value == 'A') return EmvBeRequestedCustomer.address;
     if(value == 'M') return EmvBeRequestedCustomer.phone;
     if(value == 'E') return EmvBeRequestedCustomer.email;

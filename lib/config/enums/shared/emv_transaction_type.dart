@@ -13,5 +13,7 @@ collections,
 topUps,
 ///07: Depósito
 deposits,
+///EMPTY DATA
+empty,
 
 }

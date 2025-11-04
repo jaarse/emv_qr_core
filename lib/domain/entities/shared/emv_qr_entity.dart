@@ -645,7 +645,7 @@ class Channel {
   }
 
   @override
-  String toString() => 'Channel(gui: $gui, channel: ${channel?.name})';
+  String toString() => 'Channel(gui: $gui, channel: ${channel})';
 
   @override
   int get hashCode => gui.hashCode ^ channel.hashCode;
@@ -663,7 +663,7 @@ class IvaCondition {
   }
 
   @override
-  String toString() => 'IvaCondition(gui: $gui, condition: ${condition?.name})';
+  String toString() => 'IvaCondition(gui: $gui, condition: ${condition})';
 
   @override
   int get hashCode => gui.hashCode ^ condition.hashCode;
@@ -713,11 +713,11 @@ class IncCondition {
   IncCondition({this.gui, this.condition});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{'gui': gui?.name, 'condition': condition?.name};
+    return <String, dynamic>{'gui': gui?.name, 'condition': condition};
   }
 
   @override
-  String toString() => 'IncCondition(gui: $gui, : ${condition?.name})';
+  String toString() => 'IncCondition(gui: $gui, : ${condition})';
 
   @override
   int get hashCode => gui.hashCode ^ condition.hashCode;

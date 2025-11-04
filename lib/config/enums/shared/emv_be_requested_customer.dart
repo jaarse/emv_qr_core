@@ -6,4 +6,6 @@ address,
 phone,
 ///E: La billetera debe solicitar el email del comprador.
 email,
+///EMPTY DATA
+empty,
 }

@@ -8,4 +8,6 @@ enum EmvConditionType {
   calculate_wallet,
   ///[3&&TAG82==0]:No soporta IVA
   no_supported,
+  ///EMPTY DATA
+  empty,
 }

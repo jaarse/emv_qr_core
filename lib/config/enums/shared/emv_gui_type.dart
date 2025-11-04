@@ -6,4 +6,6 @@ enum EmvGuiType {
   CRB,
   ///CO.COM.RED.TRXID
   RED,
+  ///EMPTY DATA
+  empty,
 }
