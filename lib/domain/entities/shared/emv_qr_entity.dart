@@ -7,7 +7,7 @@ import 'package:emv_qr_core/config/enums/shared/emv_product_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_transaction_type.dart';
 
-///Specific entity from EMVCo Standart
+///Specific entity from EMVCo standardt
 class EmvQrEntity {
   ///1.Convenciones QR CODE EMVCo
   ///

@@ -30,7 +30,7 @@ class EmvParser {
 
       return segmentedData;
     } catch (e) {
-      debugPrint('EmvParser Error parsing data: ${e.toString()}. String type EMV Standar malformed or incompatible');
+      debugPrint('EmvParser Error parsing data: ${e.toString()}. String type EMV standard malformed or incompatible');
       throw Exception('EmvParser Error parsing data: ${e.toString()}');
     }
   }
@@ -40,14 +40,14 @@ class EmvParser {
     if(value == '11' && monto > 0) return EmvQrType.static_hybrid;
     if(value == '11') return EmvQrType.static;
     if(value == '12') return EmvQrType.dinamyc;
-    throw Exception("The QR Type can't be defined: ${value}, monto: ${monto}");
+    throw Exception("The QR Type can't be defined: ${value}, monto: ${monto}. Expected: 11, 12 or (11 && TAG54 > 0)");
   }
 
   static EmvGuiType defineGUIType(String gui){
     if(gui.contains('CO.COM.RBM')) return EmvGuiType.RBM;
     if(gui.contains('CO.COM.CRB')) return EmvGuiType.CRB;
     if(gui.contains('CO.COM.RED')) return EmvGuiType.RED;
-    throw Exception('GUI Type not found: gui: $gui');
+    throw Exception('GUI Type not found! gui: $gui. Expected: CO.COM.{}.{}');
 
   }
 
@@ -58,7 +58,7 @@ class EmvParser {
     if(condition == '01') return EmvConditionType.wallet;
     if(condition == '02') return EmvConditionType.merchant;
     if(condition == '03') return EmvConditionType.calculate_wallet;
-    throw Exception('Condition not found: condition: $condition');
+    throw Exception('Condition not found: condition: $condition. Expected: >=01 <=03');
   }
 
   ///Determina el type para el canal que realizó la petición para generar el QR (generador del QR)
@@ -75,7 +75,7 @@ class EmvParser {
     if(value == '05') return EmvTransactionType.collections;
     if(value == '06') return EmvTransactionType.topUps;
     if(value == '07') return EmvTransactionType.deposits;
-    throw Exception('Transaction Id Type not found. value: $value');
+    throw Exception('Transaction Id Type not found. value: $value. Expected between 00 & 07');
   }
 
   ///Define los datos que deben ser requeridos al consumidor
@@ -83,7 +83,7 @@ class EmvParser {
     if(value == 'A') return EmvBeRequestedCustomer.address;
     if(value == 'M') return EmvBeRequestedCustomer.phone;
     if(value == 'E') return EmvBeRequestedCustomer.email;
-    throw Exception('Be requested consumer data not found. value: $value');
+    throw Exception('Be requested consumer data not found. value: $value. Expected: A, M, E');
     
   }
 

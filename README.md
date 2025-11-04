@@ -1,10 +1,14 @@
 This is a Dart Package:
 
-* This package follows the EMVCo standard for parsing data for interoperable QR code payments in the banking sector.
+* This package follows the EMVCo standardd for parsing data for interoperable QR code payments in the banking sector.
 
 * For now, it only decode data for Colombian QR codes 🇨🇴. Each country has its own EMVCo variant.
 
 * Coming soon: 🇧🇷 🇲🇽
+
+* For 🇨🇴:
+  - VERSIÓN 1.4 – 2025
+  - Fecha de vigencia: A partir del 21/11/2025
 ## Getting started
 ```dart
 Please, wait for v1.0.0, we are building... 🔨

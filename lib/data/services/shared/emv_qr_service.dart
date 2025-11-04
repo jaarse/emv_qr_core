@@ -2,8 +2,8 @@
 import 'package:emv_qr_core/config/helpers/emv_parser.dart';
 import 'package:emv_qr_core/domain/entities/shared/tlv.dart';
 
-///Colombia's Service to get data in her standart based
-//Get formated data from Colombia Standart
+///Colombia's Service to get data in her standardt based
+//Get formated data from Colombia standardt
 class EmvQrService {
 
   ///Initial QR TAG - TAG00
