@@ -9,7 +9,7 @@ This is a Dart Package:
 * For 🇨🇴:
   - VERSIÓN 1.4 – 2025
   - Fecha de vigencia: A partir del 21/11/2025 según documentación
-  - Package operando correctamente con QRs Bancolombia (estáticos, dinámicos), Wompi App Empresas
+  - Package operando correctamente con QRs Bancolombia (estáticos, dinámicos), Wompi App Empresas, Llaves...
 
 
 ## Getting started
@@ -21,7 +21,7 @@ You can create a test:
 
 void main() {
  test('parser', () {
-   final result = EmvQR.decode('000101...@breb@nequi@wompi@bancolombia@llaves@daviplata@finandina@etc');
+       final result = EmvQR.decode('@redeban@bancolombia@finandina@breb@ach@etc...');
    debugPrint(result); //EmvQrEntity
    expect(result, isA<EmvQrEntity>()); //All tests passed!
  });
@@ -44,7 +44,7 @@ It's simple:
 
 ```dart
 const qrEntity = EmvQR.decode('yourEMVQrStringHere');
-print(qrEntity.transactionAmount.amount) // 123000 type int
+print(qrEntity.transactionAmount.amount) // 123000  $$$ type int
 ```
 ## Message
 
