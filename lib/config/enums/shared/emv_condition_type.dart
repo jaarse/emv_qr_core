@@ -1,11 +1,11 @@
 ///Posibles condicionales de impuestos del IVA
 enum EmvConditionType {
-  ///Generado por billetera
+  ///[1]: Generado por billetera
   wallet,
-  ///Generado por comercio
+  ///[2]:Generado por comercio
   merchant,
-  ///% Debe calcularlo la billetera
+  ///[3]: Debe calcularlo la billetera
   calculate_wallet,
-  ///No soporta IVA
+  ///[3&&TAG82==0]:No soporta IVA
   no_supported,
 }

@@ -30,7 +30,7 @@ class EmvParser {
 
       return segmentedData;
     } catch (e) {
-      debugPrint('EmvParser Error parsing data: ${e.toString()}');
+      debugPrint('EmvParser Error parsing data: ${e.toString()}. String type EMV Standar malformed or incompatible');
       throw Exception('EmvParser Error parsing data: ${e.toString()}');
     }
   }

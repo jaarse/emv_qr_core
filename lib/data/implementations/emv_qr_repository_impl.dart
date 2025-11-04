@@ -334,23 +334,29 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
       //**Datos que dependen de otros TAGs*/
 
       //? TAG01 depende de TAG54
-      qrType = QrType(
-        type: EmvParser.defineQrType(qrTypeTLV!, transactionAmount!.amount!),
-      );
+      if(qrTypeTLV != null){
+        qrType = QrType(
+          type: EmvParser.defineQrType(qrTypeTLV!, transactionAmount?.amount ?? 0),
+        );
+      }
 
       //? TAG81 depende de TAG82
-      final (guiIva, conditionIva) = ivaConditionTLV!;
-      ivaCondition = IvaCondition(
-        gui: EmvParser.defineGUIType(guiIva.value),
-        condition: EmvParser.defineCondition(conditionIva.value, ivaPercent!.percent!),
-      );
+      if(ivaConditionTLV != null){
+        final (guiIva, conditionIva) = ivaConditionTLV!;
+        ivaCondition = IvaCondition(
+          gui: EmvParser.defineGUIType(guiIva.value),
+          condition: EmvParser.defineCondition(conditionIva.value, ivaPercent?.percent ?? 0),
+        );
+      }
 
       //? TAG84 depende de TAG85
-      final (guiInc, conditionInc) = incConditionTLV!;
-      incCondition = IncCondition(
-        gui: EmvParser.defineGUIType(guiInc.value),
-        condition: EmvParser.defineCondition(conditionInc.value, incPercent!.percent!),
-      );
+      if(incConditionTLV != null){
+        final (guiInc, conditionInc) = incConditionTLV!;
+        incCondition = IncCondition(
+          gui: EmvParser.defineGUIType(guiInc.value),
+          condition: EmvParser.defineCondition(conditionInc.value, incPercent?.percent ?? 0),
+        );
+      }
 
 
 
