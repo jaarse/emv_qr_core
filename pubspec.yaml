@@ -1,10 +1,10 @@
 name: emv_qr_core
 description: "EMVCo MPM Parser Interoperability Qr data String"
-version: 0.0.1+1
+version: 0.1.0
 homepage: https://github.com/jaarse/emv_qr_core
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.0.0
 
 dependencies:
 
