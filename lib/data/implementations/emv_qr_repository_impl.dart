@@ -12,6 +12,8 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
 
   @override
   EmvQrEntity decode(String qrData) {
+    ///Debug analizing current TLV for Error, Warnigs, etc
+    TLV? tlvDebbuger;
     try {
       debugPrint('Parsing EMV QR');
       final tlvs = EmvParser.parse(qrData); //Tag Length Values source fragmented by Tag
@@ -62,7 +64,9 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
 
 
       //**Analizar TLVs internos de cada TLV del QR fuente */
+      
       tlvs.forEach((tlv) {
+        tlvDebbuger = tlv;
         debugPrint('\nParseando TLV internamente: $tlv : --> ');
 
         switch (tlv.tag) {
@@ -113,7 +117,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
 
           case 52:
             merchantCategoryCode = MerchantCategoryCode(
-              code: service.getMerchantCategoryCode(tlv.value)
+              code: service.getMerchantCategoryCode(tlv.value),
             );
             break;
           
@@ -124,7 +128,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
 
           case 54:
             transactionAmount = TransactionAmount(
-              amount: service.getTransactionAmount(tlv.value)
+              amount: service.getTransactionAmount(tlv.value),
             );
             break;
 
@@ -392,7 +396,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
       return emvQr; //**Entidad creada */
 
     } catch (e) {
-      debugPrint('Error Parsing EMV QR: ${e.toString()}');
+      debugPrint('Error Parsing EMV QR: ${e.toString()}. TLV involved $tlvDebbuger');
       throw Exception(e.toString());
     }
   }
