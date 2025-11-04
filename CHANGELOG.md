@@ -1,3 +1,7 @@
+## v1.0.1
+
+* Fix 
+
 ## v1.0.0
 
 * Interoperable QR code parsing for the Colombian banking sector 🇨🇴.
