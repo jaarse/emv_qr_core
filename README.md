@@ -46,6 +46,14 @@ It's simple:
 const qrEntity = EmvQR.decode('yourEMVQrStringHere');
 print(qrEntity.transactionAmount.amount) // 123000  $$$ type int
 ```
-## Message
+
+I've included **PDF documentation**  in the repository's **[assets](https://github.com/jaarse/emv_qr_core/tree/main/assets)** to provide more context and information about each of the established fields. You can access it using EmvQrEntity.property.subproperty.
+
+
+## Issues 🦗
+
+If there is a problem with any data analysis, it is suggested to read the logs first; if it is still unclear, open an issue in the repository and leave the QR or String you are using for testing.
+
+## Message 👀
 
 Did I help you? You can contact me; it would make my day 😁☕️

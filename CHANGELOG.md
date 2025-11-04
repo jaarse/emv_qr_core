@@ -1,3 +1,7 @@
+## v1.0.2
+
+* Adding more documentation
+
 ## v1.0.1
 
 * Fix 
