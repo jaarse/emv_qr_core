@@ -51,6 +51,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
       TransferenceProductType? transferenceProductType;
       DiscountApp? discountApp;
       MerchantInfoLanguage? merchantInfoLanguage;
+      MerchantInfo? merchantInfo;
 
 
 
@@ -147,9 +148,28 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
             );
             break;
 
+
+          case 62:
+            final (billingNumber, mobileNumber, storeLabel, loyaltyNumber, referenceLabel, customerNumber, terminalLabel, transactionType, beRequestedCustomer, nit, channel) = service.getMerchantInfo(tlv.value);
+            merchantInfo = MerchantInfo(
+              billingNumber: int.tryParse(billingNumber.value),
+              mobileNumber: int.tryParse(mobileNumber.value),
+              storeLabel: storeLabel.value,
+              loyaltyNumber: int.tryParse(loyaltyNumber.value),
+              referenceLabel: referenceLabel.value,
+              customerNumber: int.tryParse(customerNumber.value),
+              terminalLabel: terminalLabel.value,
+              transactionType: EmvParser.defineTransacctionType(transactionType.value),
+              beRequestedCustomer: EmvParser.defineRequestedCustomerData(beRequestedCustomer.value),
+              nit: nit.value,
+              channel: channel.value,
+            );
+            break;
+
           case 63:
             crc = EmvChecksum(crc: service.getCRC(tlv.value));
             break;
+
 
           case 64:
             final (language, name, city) = service.getMerchantInfoLanguage(tlv.value);
@@ -349,6 +369,7 @@ class EmvQrRepositoryImpl extends EmvQrRepository {
         transferenceProductType: transferenceProductType,
         discountApp: discountApp,
         merchantInfoLanguage: merchantInfoLanguage,
+        merchantInfo: merchantInfo,
 
       );
       

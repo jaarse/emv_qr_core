@@ -9,7 +9,7 @@ class EmvQrService {
   ///Initial QR TAG - TAG00
   String getEmvIndicator(String value){
     if(value == '01') return value;
-    throw Exception("The EMV indicator can't be defined.");
+    throw Exception("The EMV indicator can't be defined. value: $value");
   }
 
   ///determine the type of QR code -TAG01
@@ -183,6 +183,25 @@ class EmvQrService {
     final tlvInquiryDesc = tlvs.firstWhere((tlv) => tlv.tag == 6, orElse: () => TLV.empty());
     return (tlvGUI, tlvIndicatorDesc, tlvAmountDesc, tlvIvaDesc, tlvPercentDesc, tlvValueDesc, tlvInquiryDesc);
   }
+
+
+  ///Información del comercio - TAG62
+  (TLV billingNumber, TLV mobileNumber, TLV storeLabel, TLV loyaltyNumber, TLV referenceLabel, TLV customerNumber, TLV terminalLabel, TLV transactionType, TLV beRequestedCustomer, TLV nit, TLV channel) getMerchantInfo(String value){
+    final tlvs = EmvParser.parse(value);
+    final tlvBillingNumber = tlvs.firstWhere((tlv) => tlv.tag == 1, orElse: () => TLV.empty());
+    final tlvImobileNumber = tlvs.firstWhere((tlv) => tlv.tag == 2, orElse: () => TLV.empty());
+    final tlvStoreLabel = tlvs.firstWhere((tlv) => tlv.tag == 3, orElse: () => TLV.empty());
+    final tlvLoyaltyNumber = tlvs.firstWhere((tlv) => tlv.tag == 4, orElse: () => TLV.empty());
+    final tlvReferenceLabel = tlvs.firstWhere((tlv) => tlv.tag == 5, orElse: () => TLV.empty());
+    final tlvcustomerNumber = tlvs.firstWhere((tlv) => tlv.tag == 6, orElse: () => TLV.empty());
+    final tlvTerminalLabel = tlvs.firstWhere((tlv) => tlv.tag == 7, orElse: () => TLV.empty());
+    final tlvTransactionType = tlvs.firstWhere((tlv) => tlv.tag == 8, orElse: () => TLV.empty());
+    final tlvBeRequestedCustomer = tlvs.firstWhere((tlv) => tlv.tag == 9, orElse: () => TLV.empty());
+    final tlvNit = tlvs.firstWhere((tlv) => tlv.tag == 10, orElse: () => TLV.empty());
+    final tlvChannel = tlvs.firstWhere((tlv) => tlv.tag == 11, orElse: () => TLV.empty());
+    return (tlvBillingNumber, tlvImobileNumber, tlvStoreLabel, tlvLoyaltyNumber, tlvReferenceLabel, tlvcustomerNumber, tlvTerminalLabel, tlvTransactionType, tlvBeRequestedCustomer, tlvNit, tlvChannel);
+  }
+
 
 
 

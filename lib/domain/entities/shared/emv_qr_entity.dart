@@ -1,8 +1,10 @@
+import 'package:emv_qr_core/config/enums/shared/emv_be_requested_customer.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_channel_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_condition_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_gui_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_product_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
+import 'package:emv_qr_core/config/enums/shared/emv_transaction_type.dart';
 
 ///Specific entity from EMVCo Standart
 class EmvQrEntity {
@@ -125,8 +127,6 @@ class EmvQrEntity {
   ///[TAG90]
   final TransactionSequentialId? transactionSequentialId;
 
-
-
   ///4. Campos para otras transacciones
   ///Codigo de servicio en operaciones de recaudo o recarga
   ///
@@ -145,14 +145,11 @@ class EmvQrEntity {
   ///[TAG94]
   final CollectedProductType? collectedProductType;
 
-
   ///4. Campos para otras transacciones
   ///Cuenta de origen en op de transferencia
   ///
   ///[TAG95]
   final OriginAccount? originAccount;
-
-
 
   ///4. Campos para otras transacciones
   ///Número de cuenta destino para transferencia
@@ -160,13 +157,11 @@ class EmvQrEntity {
   ///[TAG96]
   final DestinationAccount? destinationAccount;
 
-
   ///4. Campos para otras transacciones
   ///Referencia adicional de cuenta destino en operaciones de transferencia
   ///
   ///[TAG97]
   final AdditionalRefDestinationAccount? additionalRefDestinationAccount;
-
 
   ///4. Campos para otras transacciones
   ///Tipo de producto en operaciones de transferencia
@@ -174,13 +169,11 @@ class EmvQrEntity {
   ///[TAG98]
   final TransferenceProductType? transferenceProductType;
 
-
   ///4. Campos para otras transacciones
   ///Usasdo para la aplicación de decisiones sobre descuento
   ///
   ///[TAG99]
   final DiscountApp? discountApp;
-
 
   ///5. Información del comercio - idioma
   ///Información del comercio en idioma alternativo
@@ -188,29 +181,30 @@ class EmvQrEntity {
   ///[TAG64]
   final MerchantInfoLanguage? merchantInfoLanguage;
 
+  ///6. Capos adicionales comercio
+  ///Incluye información del comercio
+  ///
+  ///[TAG62]
+  final MerchantInfo? merchantInfo;
 
-
-
-
-
-
-
-  ///5. Detalle de la transacción
+  ///7. Detalle de la transacción
   ///Valor de la transacción
   ///Valor bruto, no incluye impuestos, propina, etc.
+  ///
+  ///[TAG54]
   final TransactionAmount? transactionAmount;
 
 
-
   EmvQrEntity({
+    this.merchantInfo,
     this.merchantInfoLanguage,
-    this.serviceCodeForCollection, 
-    this.referencePaymentOrPhoneNumber, 
-    this.collectedProductType, 
-    this.originAccount, 
-    this.destinationAccount, 
-    this.additionalRefDestinationAccount, 
-    this.transferenceProductType, 
+    this.serviceCodeForCollection,
+    this.referencePaymentOrPhoneNumber,
+    this.collectedProductType,
+    this.originAccount,
+    this.destinationAccount,
+    this.additionalRefDestinationAccount,
+    this.transferenceProductType,
     this.discountApp,
     this.emvIndicator,
     this.qrType,
@@ -228,33 +222,24 @@ class EmvQrEntity {
     this.channel,
     this.ivaCondition,
     this.ivaPercent,
-    this.ivaBase, 
-    this.incCondition, 
-    this.incPercent, 
+    this.ivaBase,
+    this.incCondition,
+    this.incPercent,
     this.transactionSequentialId,
-
-
-
 
     this.transactionAmount,
   });
-
 }
-
 
 ///TAG00
 class EmvIndicator {
   ///Always the value has been "01"
   final String? initialTag;
 
-  EmvIndicator({
-    this.initialTag,
-  });
+  EmvIndicator({this.initialTag});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'initialTag': initialTag,
-    };
+    return <String, dynamic>{'initialTag': initialTag};
   }
 
   @override
@@ -275,35 +260,25 @@ class QrType {
   String toString() => 'QrType(type: $type)';
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'type': type?.name,
-    };
+    return <String, dynamic>{'type': type?.name};
   }
-
 
   @override
   int get hashCode => type.hashCode;
 }
 
-
 ///TAG63
 class EmvChecksum {
   final String? crc;
 
-  EmvChecksum({
-    this.crc,
-  });
+  EmvChecksum({this.crc});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'crc': crc,
-    };
+    return <String, dynamic>{'crc': crc};
   }
 
   factory EmvChecksum.fromMap(Map<String, dynamic> map) {
-    return EmvChecksum(
-      crc: map['crc'] != null ? map['crc'] as String : null,
-    );
+    return EmvChecksum(crc: map['crc'] != null ? map['crc'] as String : null);
   }
 
   @override
@@ -321,17 +296,10 @@ class EmvSecurityField {
   ///Security Hash 256 - 01
   final String? hash;
 
-  EmvSecurityField({
-    required this.gui,
-    required this.hash,
-  });
-
+  EmvSecurityField({required this.gui, required this.hash});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui': gui?.name,
-      'hash': hash,
-    };
+    return <String, dynamic>{'gui': gui?.name, 'hash': hash};
   }
 
   @override
@@ -389,11 +357,11 @@ class EmvMerchantAccountInformation {
   @override
   int get hashCode {
     return gui.hashCode ^
-      identification.hashCode ^
-      phoneNumber.hashCode ^
-      email.hashCode ^
-      alphanumeric.hashCode ^
-      merchantId.hashCode;
+        identification.hashCode ^
+        phoneNumber.hashCode ^
+        email.hashCode ^
+        alphanumeric.hashCode ^
+        merchantId.hashCode;
   }
 }
 
@@ -405,16 +373,10 @@ class AcquirerNetworkId {
   ///4 characters red identification - 01
   final String? redId;
 
-  AcquirerNetworkId({
-    this.gui,
-    this.redId,
-  });
+  AcquirerNetworkId({this.gui, this.redId});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui': gui?.name,
-      'redId': redId,
-    };
+    return <String, dynamic>{'gui': gui?.name, 'redId': redId};
   }
 
   @override
@@ -432,17 +394,10 @@ class MerchantCode {
   ///Commerce code - 01
   final String? merchantCode;
 
-  MerchantCode({
-    this.gui,
-    this.merchantCode,
-  });
-
+  MerchantCode({this.gui, this.merchantCode});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui': gui?.name,
-      'merchantCode': merchantCode,
-    };
+    return <String, dynamic>{'gui': gui?.name, 'merchantCode': merchantCode};
   }
 
   @override
@@ -452,7 +407,6 @@ class MerchantCode {
   int get hashCode => gui.hashCode ^ merchantCode.hashCode;
 }
 
-
 ///TAG51
 class AggregatorMerchantCode {
   ///Globbaly Unique Identification CA - 00
@@ -461,10 +415,7 @@ class AggregatorMerchantCode {
   ///Commerce code group from social reason
   final String? merchantCodeGroup;
 
-  AggregatorMerchantCode({
-    this.gui,
-    this.merchantCodeGroup,
-  });
+  AggregatorMerchantCode({this.gui, this.merchantCodeGroup});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -474,26 +425,23 @@ class AggregatorMerchantCode {
   }
 
   @override
-  String toString() => 'AggregatorMerchantCode(gui: $gui, merchantCodeGroup: $merchantCodeGroup)';
+  String toString() =>
+      'AggregatorMerchantCode(gui: $gui, merchantCodeGroup: $merchantCodeGroup)';
 
   @override
   int get hashCode => gui.hashCode ^ merchantCodeGroup.hashCode;
 }
 
-
 ///TAG52
 class MerchantCategoryCode {
   int? code;
 
-  MerchantCategoryCode({
-    this.code,
-  });
+  MerchantCategoryCode({this.code});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'code': code,
-    };
+    return <String, dynamic>{'code': code};
   }
+
   @override
   String toString() => 'MerchantCategoryCode(code: $code)';
 
@@ -505,15 +453,12 @@ class MerchantCategoryCode {
 class CountryCode {
   String? code;
 
-  CountryCode({
-    this.code,
-  });
+  CountryCode({this.code});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'code': code,
-    };
+    return <String, dynamic>{'code': code};
   }
+
   @override
   String toString() => 'CountryCode(code: $code)';
 
@@ -521,20 +466,16 @@ class CountryCode {
   int get hashCode => code.hashCode;
 }
 
-
 ///TAG59
 class MerchantName {
   String? name;
 
-  MerchantName({
-    this.name,
-  });
+  MerchantName({this.name});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-    };
+    return <String, dynamic>{'name': name};
   }
+
   @override
   String toString() => 'MerchantName(name: $name)';
 
@@ -542,20 +483,16 @@ class MerchantName {
   int get hashCode => name.hashCode;
 }
 
-
 ///TAG60
 class MerchantCity {
   String? city;
 
-  MerchantCity({
-    this.city,
-  });
+  MerchantCity({this.city});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'city': city,
-    };
+    return <String, dynamic>{'city': city};
   }
+
   @override
   String toString() => 'MerchantCity(city: $city)';
 
@@ -567,15 +504,12 @@ class MerchantCity {
 class PostalCode {
   int? code;
 
-  PostalCode({
-    this.code,
-  });
+  PostalCode({this.code});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'code': code,
-    };
+    return <String, dynamic>{'code': code};
   }
+
   @override
   String toString() => 'PostalCode(code: $code)';
 
@@ -583,23 +517,17 @@ class PostalCode {
   int get hashCode => code.hashCode;
 }
 
-
 ///TAG80
 class Channel {
   EmvGuiType? gui;
   EmvChannelType? channel;
 
-  Channel({
-    this.gui,
-    this.channel
-  });
+  Channel({this.gui, this.channel});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui': gui?.name,
-      'channel': channel?.name,
-    };
+    return <String, dynamic>{'gui': gui?.name, 'channel': channel?.name};
   }
+
   @override
   String toString() => 'Channel(gui: $gui, channel: ${channel?.name})';
 
@@ -607,47 +535,35 @@ class Channel {
   int get hashCode => gui.hashCode ^ channel.hashCode;
 }
 
-
 ///TAG81
 class IvaCondition {
   EmvGuiType? gui;
   EmvConditionType? condition;
 
-  IvaCondition({
-    this.gui,
-    this.condition
-  });
+  IvaCondition({this.gui, this.condition});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui': gui?.name,
-      'condition': condition?.name,
-    };
+    return <String, dynamic>{'gui': gui?.name, 'condition': condition?.name};
   }
+
   @override
-  String toString() => 'IvaCondition(gui: $gui, IvaConconditiondition: ${condition?.name})';
+  String toString() => 'IvaCondition(gui: $gui, condition: ${condition?.name})';
 
   @override
   int get hashCode => gui.hashCode ^ condition.hashCode;
 }
-
 
 ///TAG82
 class IvaPercent {
   EmvGuiType? gui;
   int? percent;
 
-  IvaPercent({
-    this.gui,
-    this.percent,
-  });
+  IvaPercent({this.gui, this.percent});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui' : gui,
-      'percent': percent,
-    };
+    return <String, dynamic>{'gui': gui, 'percent': percent};
   }
+
   @override
   String toString() => 'IvaPercent(gui: $gui, percent: $percent)';
 
@@ -655,23 +571,17 @@ class IvaPercent {
   int get hashCode => gui.hashCode ^ percent.hashCode;
 }
 
-
 ///TAG83
 class IvaBase {
   EmvGuiType? gui;
   int? base;
 
-  IvaBase({
-    this.gui,
-    this.base,
-  });
+  IvaBase({this.gui, this.base});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui' : gui,
-      'base': base,
-    };
+    return <String, dynamic>{'gui': gui, 'base': base};
   }
+
   @override
   String toString() => 'IvaBase(gui: $gui, base: $base)';
 
@@ -679,24 +589,17 @@ class IvaBase {
   int get hashCode => gui.hashCode ^ base.hashCode;
 }
 
-
-
 ///TAG84
 class IncCondition {
   EmvGuiType? gui;
   EmvConditionType? condition;
 
-  IncCondition({
-    this.gui,
-    this.condition
-  });
+  IncCondition({this.gui, this.condition});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui': gui?.name,
-      'condition': condition?.name,
-    };
+    return <String, dynamic>{'gui': gui?.name, 'condition': condition?.name};
   }
+
   @override
   String toString() => 'IncCondition(gui: $gui, : ${condition?.name})';
 
@@ -709,17 +612,12 @@ class IncPercent {
   EmvGuiType? gui;
   int? percent;
 
-  IncPercent({
-    this.gui,
-    this.percent,
-  });
+  IncPercent({this.gui, this.percent});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui' : gui,
-      'percent': percent,
-    };
+    return <String, dynamic>{'gui': gui, 'percent': percent};
   }
+
   @override
   String toString() => 'IncPercent(gui: $gui, percent: $percent)';
 
@@ -732,17 +630,12 @@ class TransactionSequentialId {
   EmvGuiType? gui;
   String? id;
 
-  TransactionSequentialId({
-    this.gui,
-    this.id,
-  });
+  TransactionSequentialId({this.gui, this.id});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'gui' : gui,
-      'id': id,
-    };
+    return <String, dynamic>{'gui': gui, 'id': id};
   }
+
   @override
   String toString() => 'TransactionSequentialId(gui: $gui, id: $id)';
 
@@ -756,11 +649,10 @@ class ServiceCodeForCollection {
 
   ServiceCodeForCollection({this.code});
 
-    Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'code' : code,
-    };
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'code': code};
   }
+
   @override
   String toString() => 'ServiceCodeForCollection(code: $code)';
 
@@ -772,13 +664,12 @@ class ServiceCodeForCollection {
 class ReferencePaymentOrPhoneNumber {
   final String? ref;
 
-  ReferencePaymentOrPhoneNumber({ this.ref});
+  ReferencePaymentOrPhoneNumber({this.ref});
 
-    Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'ref' : ref,
-    };
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'ref': ref};
   }
+
   @override
   String toString() => 'ReferencePaymentOrPhoneNumber(ref: $ref)';
 
@@ -792,18 +683,16 @@ class CollectedProductType {
 
   CollectedProductType({this.type});
 
-    Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'type' : type,
-    };
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'type': type};
   }
+
   @override
   String toString() => 'CollectedProductType(type: $type)';
 
   @override
   int get hashCode => type.hashCode;
 }
-
 
 ///TAG95
 class OriginAccount {
@@ -812,18 +701,16 @@ class OriginAccount {
 
   OriginAccount({this.origin});
 
-    Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'origin' : origin,
-    };
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'origin': origin};
   }
+
   @override
   String toString() => 'OriginAccount(origin: $origin)';
 
   @override
   int get hashCode => origin.hashCode;
 }
-
 
 ///TAG96
 class DestinationAccount {
@@ -832,11 +719,10 @@ class DestinationAccount {
 
   DestinationAccount({this.dest});
 
-    Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'dest' : dest,
-    };
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'dest': dest};
   }
+
   @override
   String toString() => 'DestinationAccount(dest: $dest)';
 
@@ -851,11 +737,10 @@ class AdditionalRefDestinationAccount {
 
   AdditionalRefDestinationAccount({this.ref});
 
-    Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'ref' : ref,
-    };
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'ref': ref};
   }
+
   @override
   String toString() => 'AdditionalRefDestinationAccount(ref: $ref)';
 
@@ -869,11 +754,10 @@ class TransferenceProductType {
 
   TransferenceProductType({this.type});
 
-    Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'type' : type,
-    };
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'type': type};
   }
+
   @override
   String toString() => 'TransferenceProductType(type: $type)';
 
@@ -900,8 +784,6 @@ class DiscountApp {
     this.discountInquiry,
   });
 
-
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'gui': gui?.name,
@@ -922,77 +804,119 @@ class DiscountApp {
   @override
   int get hashCode {
     return gui.hashCode ^
-      discountIndicator.hashCode ^
-      discountAmount.hashCode ^
-      discountAmountIVA.hashCode ^
-      discountPercent.hashCode ^
-      discountValue.hashCode ^
-      discountInquiry.hashCode;
+        discountIndicator.hashCode ^
+        discountAmount.hashCode ^
+        discountAmountIVA.hashCode ^
+        discountPercent.hashCode ^
+        discountValue.hashCode ^
+        discountInquiry.hashCode;
   }
 }
 
+///TAG62
+class MerchantInfo {
+  ///Número factura indicado por el comercio
+  final int? billingNumber;
 
+  ///Número de celular para operaciones financieras
+  final int? mobileNumber;
+
+  ///Distintivo asociado al comercio como CU
+  final String? storeLabel;
+
+  ///Número de identificación de fidelización
+  final int? loyaltyNumber;
+
+  ///Consecutivo de la transacción - Para anuulación los primeros 12 es el RRN y los siguientes 6 el número de aprobación
+  final String? referenceLabel;
+
+  ///Número de identificación del cliente
+  final int? customerNumber;
+
+  ///Alfanumérico asociado al comercio
+  final String? terminalLabel;
+
+  ///Propósito de la transacción
+  final EmvTransactionType? transactionType;
+
+  ///Datos por solicitar al consumidor
+  final EmvBeRequestedCustomer? beRequestedCustomer;
+
+  ///Identificación tributaria del comercio
+  final String? nit;
+
+  ///Canal de origen. Coexiste con el TAG80 (mismo fin)
+  final String? channel;
+
+  MerchantInfo({
+    this.billingNumber,
+    this.mobileNumber,
+    this.storeLabel,
+    this.loyaltyNumber,
+    this.referenceLabel,
+    this.customerNumber,
+    this.terminalLabel,
+    this.transactionType,
+    this.beRequestedCustomer,
+    this.nit,
+    this.channel,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'billingNumber': billingNumber,
+      'mobileNumber': mobileNumber,
+      'storeLabel': storeLabel,
+      'loyaltyNumber': loyaltyNumber,
+      'referenceLabel': referenceLabel,
+      'customerNumber': customerNumber,
+      'terminalLabel': terminalLabel,
+      'transactionType': transactionType?.name,
+      'beRequestedCustomer': beRequestedCustomer?.name,
+      'nit': nit,
+      'channel': channel,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'MerchantInfo(billingNumber: $billingNumber, mobileNumber: $mobileNumber, storeLabel: $storeLabel, loyaltyNumber: $loyaltyNumber, referenceLabel: $referenceLabel, customerNumber: $customerNumber, terminalLabel: $terminalLabel, transactionType: $transactionType, beRequestedCustomer: $beRequestedCustomer, nit: $nit, channel: $channel)';
+  }
+}
 
 ///TAG63
 class MerchantInfoLanguage {
   final String? language;
   final String? name;
   final String? city;
-  MerchantInfoLanguage({
-    this.language,
-    this.name,
-    this.city,
-  });
-  
+  MerchantInfoLanguage({this.language, this.name, this.city});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'language': language,
-      'name': name,
-      'city': city,
-    };
+    return <String, dynamic>{'language': language, 'name': name, 'city': city};
   }
 
   @override
-  String toString() => 'MerchantInfoLanguage(language: $language, name: $name, city: $city)';
+  String toString() =>
+      'MerchantInfoLanguage(language: $language, name: $name, city: $city)';
 
   @override
   int get hashCode => language.hashCode ^ name.hashCode ^ city.hashCode;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ///TAG54
 class TransactionAmount {
   ///Valor bruto, no incluye impuestos ni propina
   int? amount;
 
-  TransactionAmount({
-    this.amount,
-  });
+  TransactionAmount({this.amount});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'amount': amount,
-    };
+    return <String, dynamic>{'amount': amount};
   }
+
   @override
   String toString() => 'TransactionAmount(amount: $amount)';
 
   @override
   int get hashCode => amount.hashCode;
 }
-

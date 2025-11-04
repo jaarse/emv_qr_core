@@ -1,7 +1,9 @@
+import 'package:emv_qr_core/config/enums/shared/emv_be_requested_customer.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_channel_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_gui_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_condition_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_qr_type.dart';
+import 'package:emv_qr_core/config/enums/shared/emv_transaction_type.dart';
 import 'package:emv_qr_core/config/shared/debug_print.dart';
 import 'package:emv_qr_core/domain/entities/shared/tlv.dart';
 
@@ -62,6 +64,27 @@ class EmvParser {
   ///Determina el type para el canal que realizó la petición para generar el QR (generador del QR)
   static EmvChannelType defineChannel(String channel){
     return EmvChannelType.values.firstWhere((channelType) => channelType.name.toUpperCase() == channel);
+  }
+
+  ///Determina el propósito de la transacción
+  static EmvTransactionType defineTransacctionType(String value){
+    if(value == '00') return EmvTransactionType.purchases;
+    if(value == '02') return EmvTransactionType.cancellations;
+    if(value == '03') return EmvTransactionType.transfers;
+    if(value == '04') return EmvTransactionType.withdrawals;
+    if(value == '05') return EmvTransactionType.collections;
+    if(value == '06') return EmvTransactionType.topUps;
+    if(value == '07') return EmvTransactionType.deposits;
+    throw Exception('Transaction Id Type not found. value: $value');
+  }
+
+  ///Define los datos que deben ser requeridos al consumidor
+  static EmvBeRequestedCustomer defineRequestedCustomerData(String value){
+    if(value == 'A') return EmvBeRequestedCustomer.address;
+    if(value == 'M') return EmvBeRequestedCustomer.phone;
+    if(value == 'E') return EmvBeRequestedCustomer.email;
+    throw Exception('Be requested consumer data not found. value: $value');
+    
   }
 
 
