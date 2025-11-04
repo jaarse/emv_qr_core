@@ -13,9 +13,6 @@ This is a Dart Package:
 
 
 ## Getting started
-```dart
-Please, wait for v1.0.0, we are building... 🔨
-```
 
 
 You can create a test:
@@ -39,6 +36,16 @@ const qrEntity = EmvQR.decode('yourEMVQrStringHere');
 printn(qrEntity); // EmvQrEntity Object
 ```
 
+## Quick Example
+
+Do you want to access the transaction amount to be paid/collected (generally for dynamic QR codes)?
+
+It's simple:
+
+```dart
+const qrEntity = EmvQR.decode('yourEMVQrStringHere');
+print(qrEntity.transactionAmount.amount) // 123000 type int
+```
 ## Message
 
 Did I help you? You can contact me; it would make my day 😁☕️
