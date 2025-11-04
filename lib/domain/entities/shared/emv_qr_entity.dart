@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:emv_qr_core/config/enums/shared/emv_be_requested_customer.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_channel_type.dart';
 import 'package:emv_qr_core/config/enums/shared/emv_condition_type.dart';
@@ -187,7 +188,6 @@ class EmvQrEntity {
   ///[TAG62]
   final MerchantInfo? merchantInfo;
 
-
   ///7. Detalle de la transacción
   ///Código de moneda
   ///
@@ -201,14 +201,12 @@ class EmvQrEntity {
   ///[TAG54]
   final TransactionAmount? transactionAmount;
 
-
   //7. Detalle de la transacción
   ///indicador de propina
   ///Si valor es -> 1: Billetera debe solicitar el valor de propina (no se llenan tags 56 y 57) 2: Indica que el tag 56 esta lleno excluyendo el tag 57 3: Indica que el tag 57 esta lleno excluyendo el tag 56 NOTA: Si no viene el campo, no tiene propina
   ///
   ///[TAG55]
   final TipIndicator? tipIndicator;
-
 
   ///7. Detalle de la transacción
   ///Valor de la propina
@@ -217,7 +215,6 @@ class EmvQrEntity {
   ///[TAG56]
   final TipValue? tipValue;
 
-
   ///7. Detalle de la transacción
   ///Porcentaje de la propina
   ///Excluyente del tag 56. Se llena solo si tag 55 tiene valor “03”
@@ -225,48 +222,128 @@ class EmvQrEntity {
   ///[TAG57]
   final TipPercent? tipPercent;
 
-
   EmvQrEntity({
-    this.currencyCode,
-    this.tipIndicator,
-    this.tipValue,
-    this.tipPercent,
-    this.merchantInfo,
-    this.merchantInfoLanguage,
-    this.serviceCodeForCollection,
-    this.referencePaymentOrPhoneNumber,
-    this.collectedProductType,
-    this.originAccount,
-    this.destinationAccount,
-    this.additionalRefDestinationAccount,
-    this.transferenceProductType,
-    this.discountApp,
-    this.emvIndicator,
-    this.qrType,
-    this.crc,
-    this.securityField,
-    this.multiKeyImmediatePayments,
-    this.acquirerNetworkId,
-    this.merchantCode,
-    this.aggregatorMerchantCode,
-    this.merchantCategoryCode,
-    this.countryCode,
-    this.merchantName,
-    this.merchantCity,
-    this.postalCode,
-    this.channel,
-    this.ivaCondition,
-    this.ivaPercent,
-    this.ivaBase,
-    this.incCondition,
-    this.incPercent,
-    this.transactionSequentialId,
-    this.transactionAmount,
+    required this.emvIndicator,
+    required this.qrType,
+    required this.crc,
+    required this.securityField,
+    required this.multiKeyImmediatePayments,
+    required this.acquirerNetworkId,
+    required this.merchantCode,
+    required this.aggregatorMerchantCode,
+    required this.merchantCategoryCode,
+    required this.countryCode,
+    required this.merchantName,
+    required this.merchantCity,
+    required this.postalCode,
+    required this.channel,
+    required this.ivaCondition,
+    required this.ivaPercent,
+    required this.ivaBase,
+    required this.incCondition,
+    required this.incPercent,
+    required this.transactionSequentialId,
+    required this.serviceCodeForCollection,
+    required this.referencePaymentOrPhoneNumber,
+    required this.collectedProductType,
+    required this.originAccount,
+    required this.destinationAccount,
+    required this.additionalRefDestinationAccount,
+    required this.transferenceProductType,
+    required this.discountApp,
+    required this.merchantInfoLanguage,
+    required this.merchantInfo,
+    required this.currencyCode,
+    required this.transactionAmount,
+    required this.tipIndicator,
+    required this.tipValue,
+    required this.tipPercent,
   });
 
   @override
   String toString() {
     return 'EmvQrEntity(emvIndicator: $emvIndicator, qrType: $qrType, crc: $crc, securityField: $securityField, multiKeyImmediatePayments: $multiKeyImmediatePayments, acquirerNetworkId: $acquirerNetworkId, merchantCode: $merchantCode, aggregatorMerchantCode: $aggregatorMerchantCode, merchantCategoryCode: $merchantCategoryCode, countryCode: $countryCode, merchantName: $merchantName, merchantCity: $merchantCity, postalCode: $postalCode, channel: $channel, ivaCondition: $ivaCondition, ivaPercent: $ivaPercent, ivaBase: $ivaBase, incCondition: $incCondition, incPercent: $incPercent, transactionSequentialId: $transactionSequentialId, serviceCodeForCollection: $serviceCodeForCollection, referencePaymentOrPhoneNumber: $referencePaymentOrPhoneNumber, collectedProductType: $collectedProductType, originAccount: $originAccount, destinationAccount: $destinationAccount, additionalRefDestinationAccount: $additionalRefDestinationAccount, transferenceProductType: $transferenceProductType, discountApp: $discountApp, merchantInfoLanguage: $merchantInfoLanguage, merchantInfo: $merchantInfo, currencyCode: $currencyCode, transactionAmount: $transactionAmount, tipIndicator: $tipIndicator, tipValue: $tipValue, tipPercent: $tipPercent)';
+  }
+
+  @override
+  bool operator ==(covariant EmvQrEntity other) {
+    if (identical(this, other)) return true;
+  
+    return 
+      other.emvIndicator == emvIndicator &&
+      other.qrType == qrType &&
+      other.crc == crc &&
+      other.securityField == securityField &&
+      other.multiKeyImmediatePayments == multiKeyImmediatePayments &&
+      other.acquirerNetworkId == acquirerNetworkId &&
+      other.merchantCode == merchantCode &&
+      other.aggregatorMerchantCode == aggregatorMerchantCode &&
+      other.merchantCategoryCode == merchantCategoryCode &&
+      other.countryCode == countryCode &&
+      other.merchantName == merchantName &&
+      other.merchantCity == merchantCity &&
+      other.postalCode == postalCode &&
+      other.channel == channel &&
+      other.ivaCondition == ivaCondition &&
+      other.ivaPercent == ivaPercent &&
+      other.ivaBase == ivaBase &&
+      other.incCondition == incCondition &&
+      other.incPercent == incPercent &&
+      other.transactionSequentialId == transactionSequentialId &&
+      other.serviceCodeForCollection == serviceCodeForCollection &&
+      other.referencePaymentOrPhoneNumber == referencePaymentOrPhoneNumber &&
+      other.collectedProductType == collectedProductType &&
+      other.originAccount == originAccount &&
+      other.destinationAccount == destinationAccount &&
+      other.additionalRefDestinationAccount == additionalRefDestinationAccount &&
+      other.transferenceProductType == transferenceProductType &&
+      other.discountApp == discountApp &&
+      other.merchantInfoLanguage == merchantInfoLanguage &&
+      other.merchantInfo == merchantInfo &&
+      other.currencyCode == currencyCode &&
+      other.transactionAmount == transactionAmount &&
+      other.tipIndicator == tipIndicator &&
+      other.tipValue == tipValue &&
+      other.tipPercent == tipPercent;
+  }
+
+  @override
+  int get hashCode {
+    return emvIndicator.hashCode ^
+      qrType.hashCode ^
+      crc.hashCode ^
+      securityField.hashCode ^
+      multiKeyImmediatePayments.hashCode ^
+      acquirerNetworkId.hashCode ^
+      merchantCode.hashCode ^
+      aggregatorMerchantCode.hashCode ^
+      merchantCategoryCode.hashCode ^
+      countryCode.hashCode ^
+      merchantName.hashCode ^
+      merchantCity.hashCode ^
+      postalCode.hashCode ^
+      channel.hashCode ^
+      ivaCondition.hashCode ^
+      ivaPercent.hashCode ^
+      ivaBase.hashCode ^
+      incCondition.hashCode ^
+      incPercent.hashCode ^
+      transactionSequentialId.hashCode ^
+      serviceCodeForCollection.hashCode ^
+      referencePaymentOrPhoneNumber.hashCode ^
+      collectedProductType.hashCode ^
+      originAccount.hashCode ^
+      destinationAccount.hashCode ^
+      additionalRefDestinationAccount.hashCode ^
+      transferenceProductType.hashCode ^
+      discountApp.hashCode ^
+      merchantInfoLanguage.hashCode ^
+      merchantInfo.hashCode ^
+      currencyCode.hashCode ^
+      transactionAmount.hashCode ^
+      tipIndicator.hashCode ^
+      tipValue.hashCode ^
+      tipPercent.hashCode;
   }
 }
 
@@ -942,7 +1019,6 @@ class MerchantInfoLanguage {
   int get hashCode => language.hashCode ^ name.hashCode ^ city.hashCode;
 }
 
-
 ///TAG53
 class CurrencyCode {
   final String? iso;
@@ -950,9 +1026,7 @@ class CurrencyCode {
   CurrencyCode({this.iso});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'iso': iso,
-    };
+    return <String, dynamic>{'iso': iso};
   }
 
   @override
@@ -1002,15 +1076,10 @@ class TipIndicator {
 class TipValue {
   ///Excluyente del tag 57. Se llena solo si tag 55 tiene valor “02”
   final int? value;
-  TipValue({
-    this.value,
-  });
-
+  TipValue({this.value});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'value': value,
-    };
+    return <String, dynamic>{'value': value};
   }
 
   @override
@@ -1024,15 +1093,10 @@ class TipValue {
 class TipPercent {
   ///Excluyente del tag 56. Se llena solo si tag 55 tiene valor “03”
   final int? percent;
-  TipPercent({
-    this.percent,
-  });
-
+  TipPercent({this.percent});
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'percent': percent,
-    };
+    return <String, dynamic>{'percent': percent};
   }
 
   @override
@@ -1041,5 +1105,3 @@ class TipPercent {
   @override
   int get hashCode => percent.hashCode;
 }
-
-
