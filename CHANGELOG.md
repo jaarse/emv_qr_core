@@ -1,3 +1,7 @@
+## v1.1.0
+
+* Add more GUI types
+
 ## v1.0.2
 
 * Adding more documentation
