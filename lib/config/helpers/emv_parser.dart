@@ -46,9 +46,15 @@ class EmvParser {
 
   static EmvGuiType defineGUIType(String gui){
     if(gui.isEmpty) return EmvGuiType.empty;
-    if(gui.contains('CO.COM.RBM')) return EmvGuiType.RBM;
+    if(gui.contains('CO.COM.ACH')) return EmvGuiType.ACH;
+    if(gui.contains('CO.COM.BRC')) return EmvGuiType.BRC;
     if(gui.contains('CO.COM.CRB')) return EmvGuiType.CRB;
+    if(gui.contains('CO.COM.MCCA')) return EmvGuiType.MCCA;
+    if(gui.contains('CO.COM.RBM')) return EmvGuiType.RBM;
     if(gui.contains('CO.COM.RED')) return EmvGuiType.RED;
+    if(gui.contains('CO.COM.SVB')) return EmvGuiType.SVB;
+    if(gui.contains('CO.COM.VCSS')) return EmvGuiType.VCSS;
+    if(gui.contains('CO.COM.VISI')) return EmvGuiType.VISI;
     throw Exception('GUI Type not found! gui: $gui. Expected: CO.COM.{}.{}');
 
   }
